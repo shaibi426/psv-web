@@ -14,6 +14,8 @@ module.exports = {
       },
       colors:{
         'pmpblue':'#18253d',
+        'pmpblue2':'#00308f',
+        'pmpblue3':'  #012754  ',
         'pmpyellow':'#feb908'
       }
     },
