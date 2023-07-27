@@ -9,10 +9,16 @@ import LicienceGraph from "./graphs/liciencePiegraph";
 import FitnessGrph from "./graphs/fitnessgraph";
 import TrackinGraph from "./graphs/TrackingGraph";
 import TrackinLineGraph from "./graphs/Trackingline";
+import ExcuteQuery from "../genral/getDat";
 
 export default function Header() {
+ 
+    
+  
+
   return (
     <div className="flex flex-col w-full min-h-screen ">
+  
       {/* ------------------------------------------main body */}
       <div className="bg-gray-300 h-screen flex flex-row ">
         {/* ------------------------------------------side bar */}

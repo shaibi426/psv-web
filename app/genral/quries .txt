@@ -1,0 +1,221 @@
+using CrystalDecisions.Shared.Json;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using TIPS.Classes;
+
+namespace TIPS.Forms
+{
+    public partial class DashBoard : Form
+    {
+        public DashBoard()
+        {
+            InitializeComponent();
+        }
+        SqlConnection connect;
+        int sec = 0;
+
+        string D_V;
+        string D_E;
+        string F_V;
+        string F_E;
+        string R_V;
+        string R_E;
+        private void DashBoard_Load(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string conn;
+                SqlCommand CMD;
+
+                string sr = "cpo.nhmp.gov.pk,4414";
+                string port = "4414";
+                //string db = "M3DBCombine";
+                string db = "M3DB";
+                string us = "PSV_dev";
+                string pw = "14554fg%dd";
+                conn = "Data Source=" + sr + ";Initial Catalog="
+                    + db + ";User ID=" + us + ";password='" + pw + "'";
+
+                connect = new SqlConnection(conn);
+
+                D_V = DV.Text;
+                    D_E = DE.Text;
+                        F_V = FV.Text;
+                        F_E = DE.Text;
+                    R_V = RV.Text;
+                R_E = RE.Text;
+
+                // TODO: This line of code loads data into the 'pSV_MANAGEMENTDataSet.EXP_LICENCE' table. You can move, or remove it, as needed.
+                fillChart();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void fillChart()
+        {
+            connect.Open();
+
+            DataSet ds = new DataSet();
+            DataSet ds2 = new DataSet();
+            DataSet ds3 = new DataSet();
+
+            double total = 0;
+
+
+            foreach (var series in chart1.Series)
+            {
+                series.Points.Clear();
+            }
+            foreach (var series in chart2.Series)
+            {
+                series.Points.Clear();
+            }
+            foreach (var series in chart3.Series)
+            {
+                series.Points.Clear();
+            }
+
+
+            ////SqlCommand cmd = new SqlCommand("SELECT iIF(GETDATE()>date_exp,'Expired','No') as yesno  FROM DriversData GROUP BY date_exp", Class1.connect);
+
+            /////////////////// START Licence Information
+
+            SqlCommand cmdd212 = new SqlCommand("select count(LicenseExpiry) from DriverInfo where LicenseExpiry is not null", connect);
+            SqlDataAdapter dad212 = new SqlDataAdapter(cmdd212);
+            DataTable dtt212 = new DataTable();
+            dad212.Fill(dtt212);
+
+            if (dtt212.Rows.Count > 0)
+            {
+                label2.Text = dtt212.Rows[0][0].ToString();
+                total = Convert.ToDouble(label2.Text);
+            }
+
+            SqlCommand cmd = new SqlCommand("SELECT count(iIF(GETDATE()>LicenseExpiry,'Expired Licence','Valid Licence')) as yesno, iIF(GETDATE()>LicenseExpiry,'Expired Licence','Valid Licence') as name FROM DriverInfo where LicenseExpiry is not null GROUP BY iIF(GETDATE()>LicenseExpiry,'Expired Licence','Valid Licence')", connect);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable DT = new DataTable();
+            da.Fill(DT);
+            foreach (DataRow Row in DT.Rows)
+            {
+                double percent = 0;
+                percent = Math.Round((Convert.ToDouble(Row["yesno"].ToString()) / total) * 100);
+                chart1.Series["yesno"].Points.AddXY(Row["name"].ToString(), percent);
+                if (Row["name"].ToString() == "Valid Licence") { DV.Text = D_V + Row["yesno"].ToString(); } else if (Row["name"].ToString() == "Expired Licence") { DE.Text = D_E +  Row["yesno"].ToString(); }
+            }
+
+            ////////////////// End License Information
+            ///////////////////////// Route Data Information
+            SqlCommand cmdd2 = new SqlCommand("select count(RouteExpiryDate) from VehicleInfo where RouteExpiryDate is not null", connect);
+            SqlDataAdapter dad2 = new SqlDataAdapter(cmdd2);
+            DataTable dtt2 = new DataTable();
+            dad2.Fill(dtt2);
+            if (dtt2.Rows.Count > 0)
+            {
+                label1.Text = dtt2.Rows[0][0].ToString();
+                total  = Convert.ToDouble(label1.Text);
+            }
+
+            SqlCommand cmd1 = new SqlCommand("SELECT count(iIF(GETDATE() > RouteExpiryDate, 'Expired', 'Valid')) as yesno, iIF(GETDATE() > RouteExpiryDate, 'Expired', 'Valid') as name FROM VehicleInfo WHERE RouteExpiryDate IS NOT NULL GROUP BY iIF(GETDATE() > RouteExpiryDate, 'Expired', 'Valid') ", connect);
+            SqlDataAdapter da1 = new SqlDataAdapter(cmd1);
+            DT = new DataTable();
+            da1.Fill(DT);
+
+            foreach (DataRow Row in DT.Rows)
+            {
+                double percent = 0;
+                percent = Math.Round((Convert.ToDouble(Row["yesno"].ToString()) / total) * 100);
+
+                chart2.Series["yesno"].Points.AddXY(Row["name"].ToString(), percent);
+                if (Row["name"].ToString() == "Valid") { RV.Text = R_V + Row["yesno"].ToString(); } else if (Row["name"].ToString() == "Expired") { RE.Text = R_E +  Row["yesno"].ToString(); }
+
+            }
+            /////////////////////////// End Route Data Information
+
+            ////////////////// Fitness Data Information
+
+            SqlCommand cmdd21 = new SqlCommand("select count(FitnessExpiryDate) from VehicleInfo where FitnessExpiryDate is not null", connect);
+            SqlDataAdapter dad21 = new SqlDataAdapter(cmdd21);
+            DataTable dtt21 = new DataTable();
+            dad21.Fill(dtt21);
+            if (dtt21.Rows.Count > 0)
+            {
+                label3.Text = dtt21.Rows[0][0].ToString();
+                total = Convert.ToDouble(label3.Text);
+            }
+
+            SqlCommand cmd2 = new SqlCommand("SELECT count(iIF(GETDATE()>FitnessExpiryDate,'Expired Fitness','Valid Fitness')) as yesno, iIF(GETDATE()>FitnessExpiryDate,'Expired Fitness','Valid Fitness') as name FROM VehicleInfo WHERE FitnessExpiryDate IS NOT NULL GROUP BY iIF(GETDATE()>FitnessExpiryDate,'Expired Fitness','Valid Fitness')", connect);
+            SqlDataAdapter da2 = new SqlDataAdapter(cmd2);
+            DT = new DataTable();
+            da2.Fill(DT);
+
+            foreach (DataRow Row in DT.Rows)
+            {
+                double percent = 0;
+                percent = Math.Round((Convert.ToDouble(Row["yesno"].ToString()) / total) * 100);
+                chart3.Series["yesno"].Points.AddXY(Row["name"].ToString(), percent);
+
+                if (Row["name"].ToString() == "Valid Fitness") { FV.Text = F_V + Row["yesno"].ToString(); } else if (Row["name"].ToString() == "Expired Fitness") { FE.Text = F_E + Row["yesno"].ToString(); }
+            }
+            //////////// End Fitness data Information
+
+            TOT_DVR.Text = COUNT_DATA("DriverInfo", "SrNo");
+            TOT_VEH.Text = COUNT_DATA("VehicleInfo", "SrNo");
+            TOT_COMPANIES .Text = COUNT_DATA("COMMON_COMPANY", "id");
+
+            connect.Close();
+            
+        }
+
+        public string COUNT_DATA(string tb,string fd)
+        {
+            string result = null;
+
+            SqlCommand cmd = new SqlCommand("select count(" + fd + ") from " + tb , connect);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            if (dt.Rows.Count > 0) { result = dt.Rows[0][0].ToString(); } else { result = "0"; }
+
+            return result;
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            sec++;
+
+            if (sec == 100)
+            {
+                fillChart();
+                sec = 0;
+            }
+        }
+    }
+}
