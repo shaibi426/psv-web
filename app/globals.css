@@ -10,7 +10,7 @@
     @apply bg-white w-1/4 h-60 rounded-lg m-4 shadow-md shadow-gray-600 
   }
   .graph-footer{
-    @apply flex justify-center  items-center bg-pmpyellow h-1/6 w-full rounded-b-md  text-pmpblue text-center
+    @apply flex justify-center  items-center bg-gradient-to-t from-yellow-100 to-yellow-400 h-1/6 w-full rounded-b-md  text-pmpblue text-center
   }
   .graph-body{
   @apply h-5/6 flex justify-center items-center

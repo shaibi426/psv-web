@@ -5,6 +5,10 @@ import driver from './assests/driver.png'
 import company from './assests/company.png'
 import psv from './assests/bus.png'
 import RoutGraph from './graphs/routeGraph'
+import LicienceGraph from "./graphs/liciencePiegraph";
+import FitnessGrph from "./graphs/fitnessgraph";
+import TrackinGraph from "./graphs/TrackingGraph";
+import TrackinLineGraph from "./graphs/Trackingline";
 
 export default function Header() {
   return (
@@ -12,7 +16,7 @@ export default function Header() {
       {/* ------------------------------------------main body */}
       <div className="bg-gray-300 h-screen flex flex-row ">
         {/* ------------------------------------------side bar */}
-        <div className="bg-pmpblue3 w-2/12  flex flex-col justify-start items-center">
+        <div className="bg-pmpblue3 bg-gradient-radial to-pmpblue3 from-blue-900 w-2/12  flex flex-col justify-start items-center">
           <div className="  h-14 w-full">
             <div className=" justify-start items-center flex flex-row p-3 border-b border-b-pmpyellow">
               <div>
@@ -61,7 +65,7 @@ export default function Header() {
         {/* ------------------------------------------dashboard container */}
         <div className="bg-gray-200 w-full">
           {/* ------------------------------------------header */}
-          <div className="bg-pmpblue3 w-full h-14 text-pmpyellow flex justify-center items-center">DashBoard</div>
+          <div className="bg-pmpblue3 w-full h-14 border-pmpyellow border-b-2 text-pmpyellow flex justify-center items-center">DashBoard</div>
           {/* ----------------------------------------------------body */}
           <div className="flex flex-wrap flex-row items-center justify-evenly">
             <div className="graph-div">
@@ -69,19 +73,29 @@ export default function Header() {
               <div className=" graph-body ">
                 <RoutGraph />
               </div>
-              <div className="graph-footer">Total Routs  56785</div>
+              <div className="graph-footer bg-gradient-to-t from-purple-100 to-purple-400">Total Routs  56785</div>
             </div>
             <div className="graph-div">
-              <div className=" graph-body"> Licience graph</div>
-              <div className="graph-footer">Total D.Licience 56785</div>
+              {/* ====================================licience gragh */}
+              <div className=" graph-body">
+                <LicienceGraph />
+              </div>
+              <div className="graph-footer bg-gradient-to-t from-green-100 to-green-500">Total D.Licience 56785</div>
             </div>
             <div className="graph-div">
-              <div className=" graph-body"> Fitness graph</div>
-              <div className="graph-footer">Total Fitness  56785</div>
+              {/* ======================fitness Graph */}
+              <div className=" graph-body"> 
+              <FitnessGrph />
+              </div>
+              <div className="graph-footer ">Total Fitness  56785</div>
             </div>
             <div className="bg-white w-3/4 h-60 rounded-lg m-4 shadow-md shadow-gray-600">
-              <div className=" graph-body"> PSV checking Track</div>
-              <div className="graph-footer">Total Vehicles 56785</div>
+            {/* ============================================tracking Graph */}
+              <div className=" graph-body">
+                {/* <TrackinGraph /> */}
+                <TrackinLineGraph />
+              </div>
+              <div className="graph-footer bg-gradient-to-b from-orange-100 to-orange-400">Total Vehicles 56785</div>
             </div>
           </div>
         </div>
