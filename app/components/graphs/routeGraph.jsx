@@ -1,17 +1,40 @@
 "use client"
-
+import React,{useState,useEffect} from "react"
 import {  BarChart, Bar, Cell, XAxis, YAxis, ResponsiveContainer,CartesianGrid,Tooltip,Legend} from "recharts"
 
 export default function RoutGraph() {
-    const data =[
-        {'name':'a',value:20},
-        {'name':'b',value:27.5},
-        {'name':'c',value:13},
-        {'name':'d',value:25},
-    ]
-    const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'red', 'pink'];
+  const [expired,setExpired]=useState(200)
+  const [valid,setvalid]=useState(500)
+
+  const data = [
+    { name: 'Valid', value: valid },
+    { name: 'Expired', value: expired },
+  
+  ];
+
+  const getExpiredLicience = async () => {
+    const response = await fetch('api/checkRoute', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const validity = await response.json()
+    setExpired(validity[0]['total'])
+
+   setvalid(validity[1]['total'])
+  
+    
+    
+  } 
+
+  useEffect(()=>{
+    getExpiredLicience()
+  })
+
+    const colors = ['#0088FE', 'red', '#00C49F', '#FFBB28', '#FF8042', 'pink'];
     const getPath = (x, y, width, height) => {
-      return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
+      return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width /2},${y + height / 2}
       ${x + width / 2}, ${y}
       C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
       Z`;

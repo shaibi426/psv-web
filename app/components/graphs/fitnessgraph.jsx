@@ -1,14 +1,10 @@
 "use client"
-import React, { PureComponent } from 'react';
+import React, { PureComponent ,useState,useEffect} from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 
-const data = [
-  { name: 'Group A', value: 800 },
-  { name: 'Group B', value: 300 },
- 
-];
 
-const COLORS = [ '#00C49F', '#AF7AC5','#FFBE28', '#FF8042','#0088FE'];
+
+const COLORS = [  '#AF7AC5','#00C49F','#FFBE28', '#FF8042','#0088FE'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -21,6 +17,35 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
 };
   export default function FitnessGrph(){
+
+    const [expired,setExpired]=useState(3)
+    const [valid,setvalid]=useState(10)
+  
+    const data = [
+      { name: 'Valid', value: valid },
+      { name: 'Expired', value: expired },
+    
+    ];
+  
+    const getExpiredLicience = async () => {
+      const response = await fetch('api/checkLicience', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const validity = await response.json()
+     setvalid(validity[0]['total'])
+     setExpired(validity[1]['total'])
+  
+      
+      
+    } 
+  
+    useEffect(()=>{
+      getExpiredLicience()
+    })
+  
     return(
         <ResponsiveContainer width="100%" height="100%">
         <PieChart width={400} height={400}>
