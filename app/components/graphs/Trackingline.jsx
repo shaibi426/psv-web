@@ -1,57 +1,36 @@
 "use client"
-import React, { PureComponent } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React, { PureComponent,useState,useEffect } from 'react';
+import { LineChart,  AreaChart,Area,Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+
 
 export default function TrackinLineGraph(){
+  const [data,setData]=useState()
+  
+
+  const getExpiredLicience = async () => {
+    const response = await fetch('api/pointtracking', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const result = await response.json()
+   setData(result)
+  } 
+
+  useEffect(()=>{
+    getExpiredLicience()
+  })
+
     return(
-        <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          width={500}
+      <div className="bg-white w-5/6 h-60 rounded-lg m-4 shadow-md shadow-gray-600">
+      {/* ============================================tracking Graph */}
+      <div className=" graph-body">
+      <ResponsiveContainer width="100%" height="100%">
+     
+        <AreaChart
+          width={400}
           height={300}
           data={data}
           margin={{
@@ -62,14 +41,23 @@ export default function TrackinLineGraph(){
           }}
         >
           <CartesianGrid strokeDasharray="2 2" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="Loctions" />
           <YAxis />
           <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={3}  activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" strokeWidth={3} />
-        </LineChart>
+          <Legend verticalAlign="top" type="square" height={36}/>
+          {/* <Area type="monotone" dataKey="vehicles" stroke="#8884d8" strokeWidth={3}  activeDot={{ r: 8 }} />
+          <Area type="monotone" dataKey="location" stroke="#82ca9d" strokeWidth={3} /> */}
+          <Area type="monotone" dataKey="PSVs" stackId="1" stroke="purple" fill="#8884d8" />
+                <Area type="monotone" dataKey="Location" stackId="1" stroke="green" fill="#82ca9d" />
+        </AreaChart>
       </ResponsiveContainer>
+      </div>
+      <div className="graph-footer bg-gradient-to-t from-orange-100 to-orange-400 font-semibold">
+        Location Wise Vehicle Checking
+      </div>
+    </div>
+      
+       
           );
     
 }

@@ -1,15 +1,12 @@
 
 import Header from "./components/header"
-import GetData from "./genral/test"
-
+import Main from './components/Main'
 
 
 export default function Home() {
 
   return (
-   <Header />
-  
- 
+  <Main />
   )
   
 }

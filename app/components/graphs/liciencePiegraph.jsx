@@ -1,11 +1,11 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Sector, Cell,Legend,LabelList, ResponsiveContainer } from 'recharts';
 
 const COLORS = ['#0088FE','#EB9002',];
 
 export default function LicienceGraph(){
-  const [expired,setExpired]=useState(200)
+  const [expired,setExpired]=useState(800)
   const [valid,setvalid]=useState(500)
 
   const data = [
@@ -34,25 +34,39 @@ export default function LicienceGraph(){
   })
 
 return(
-        <ResponsiveContainer>
+  <div className="graph-div">
+              {/* ====================================licience gragh */}
+              <div className=" graph-body">
+              <ResponsiveContainer>
 
-        <PieChart width={400} height={400} >
-        <Pie
-          data={data}
-        
-          innerRadius={60}
-          outerRadius={80}
-          fill="#8884d8"
-          paddingAngle={5}
-          dataKey="value"
-          >
-          {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-        </Pie>
-       
-      </PieChart>
-    </ResponsiveContainer>
+<PieChart width={400} height={400} >
+<Legend verticalAlign="top" height={36}/>
+<Pie
+  data={data}
+  
+  innerRadius={60}
+  outerRadius={80}
+  fill="#8884d8"
+  paddingAngle={5}
+  dataKey="value"
+  >
+    <LabelList dataKey="value" position="insideStart" fill='white' />
+  {data.map((entry, index) => (
+      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+      ))}
+</Pie>
+
+</PieChart>
+</ResponsiveContainer>
+              </div>
+              <div className="graph-footer bg-gradient-to-t from-green-100 to-green-500">
+                License Checked
+                <span className='footer-value'>
+                {valid+expired}
+                  </span> 
+                  </div>
+            </div>
+  
     );
     
 }

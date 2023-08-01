@@ -1,6 +1,6 @@
 "use client"
 import React,{useState,useEffect} from "react"
-import {  BarChart, Bar, Cell, XAxis, YAxis, ResponsiveContainer,CartesianGrid,Tooltip,Legend} from "recharts"
+import {  BarChart, Bar, Cell, XAxis, YAxis, ResponsiveContainer,CartesianGrid,Tooltip,Legend, Label} from "recharts"
 
 export default function RoutGraph() {
   const [expired,setExpired]=useState(200)
@@ -21,18 +21,14 @@ export default function RoutGraph() {
     })
     const validity = await response.json()
     setExpired(validity[0]['total'])
-
-   setvalid(validity[1]['total'])
-  
-    
-    
+    setvalid(validity[1]['total']) 
   } 
 
   useEffect(()=>{
     getExpiredLicience()
   })
 
-    const colors = ['#0088FE', 'red', '#00C49F', '#FFBB28', '#FF8042', 'pink'];
+    const colors = ['#0088FE', 'purple', '#00C49F', '#FFBB28', '#FF8042', 'pink'];
     const getPath = (x, y, width, height) => {
       return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width /2},${y + height / 2}
       ${x + width / 2}, ${y}
@@ -46,7 +42,10 @@ export default function RoutGraph() {
       return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
     };
     return (
-      <ResponsiveContainer width="100%" height="100%">
+      <div className="graph-div">
+              {/* ==================================================Rout Graph */}
+              <div className=" graph-body ">
+              <ResponsiveContainer width="100%" height="100%">
           <BarChart
       width={500}
       height={300}
@@ -60,13 +59,23 @@ export default function RoutGraph() {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      
+    
       <Bar dataKey="value" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
         {data.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={colors[index % 20]} />
+          
         ))}
       </Bar>
     </BarChart>
       </ResponsiveContainer>
+              </div>
+              <div className="graph-footer bg-gradient-to-t from-purple-100 to-purple-400">
+                Total Routs
+                <span className='footer-value'>
+                {valid+expired}
+                  </span>  
+                  </div>
+            </div>
+      
       
     );}

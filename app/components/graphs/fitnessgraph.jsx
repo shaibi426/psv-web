@@ -1,10 +1,10 @@
 "use client"
 import React, { PureComponent ,useState,useEffect} from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 
 
-const COLORS = [  '#AF7AC5','#00C49F','#FFBE28', '#FF8042','#0088FE'];
+const COLORS = [  '#00C49F','#AF7AC5','#FFBE28', '#FF8042','#0088FE'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -28,7 +28,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     ];
   
     const getExpiredLicience = async () => {
-      const response = await fetch('api/checkLicience', {
+      const response = await fetch('api/checkFitness', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -47,8 +47,12 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     })
   
     return(
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="graph-div">
+              {/* ======================fitness Graph */}
+              <div className=" graph-body"> 
+              <ResponsiveContainer width="100%" height="100%">
         <PieChart width={400} height={400}>
+        <Legend verticalAlign="top" height={36}/>
           <Pie
             data={data}
             cx="50%"
@@ -57,13 +61,23 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
             label={renderCustomizedLabel}
             outerRadius={80}
             fill="#8884d8"
-            dataKey="value"
+            dataKey="value"         
           >
+            <Legend />
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
+              </div>
+              <div className="graph-footer ">
+                Total Fitness
+                <span className='footer-value'>
+                 {valid+expired}
+                 </span>
+                 </div>
+            </div>
+       
     )
   }
