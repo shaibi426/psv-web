@@ -15,6 +15,7 @@ const SubDropdown = (props:NameProp, option:ListOption) => {
   const [Report, setReport] = useState('');
   
 
+
   return (
     <div>
       <div onMouseEnter={() => setSubrptOpen(true)} onMouseLeave={()=>setSubrptOpen(false)} className="flex flex-row text-center justify-center w-full items-center relative">
@@ -26,7 +27,7 @@ const SubDropdown = (props:NameProp, option:ListOption) => {
           <ul className='divide-y'>
             {props.option.map((item)=>(
                 <li className ='py-2' key ={item}> 
-                <Link href ={{pathname:"/components/Reports"}} onClick ={()=>setReport(item)}>{item}</Link>
+                <Link href ={{pathname:`/components/${item}`}} onClick ={()=>setReport(item)}>{item}</Link>
                 </li>
             ))}
             

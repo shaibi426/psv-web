@@ -1,25 +1,27 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { DatePicker } from "react-rainbow-components";
-import { useParams } from "next/navigation";
-import { parsedUrlQueryToParams } from "next/dist/server/future/route-matches/route-match";
+
 
 
 const containerStyles = {
   maxWidth: 300,
 };
 
-const MainReport = () => {
+const MainReport = (props) => {
   const [startDate, setStartDate] = useState(Date());
   const [endDate, setEndDate] = useState(Date());
 
-  const params =useParams()
 
-  const reportName = params.key
+  const shortStartDate =new Date(startDate).toLocaleDateString().split('/').reverse().join('-')
+  const shortEndDate =new Date(endDate).toLocaleDateString().split('/').reverse().join('-')
 
+ 
   useEffect(
     ()=>{
-      console.log(params.ke)
+      setReportName(props.params.Reports.split('%20').join(' '))  // as we get report name as 'a%20b' but we need it as 'a b'
+      console.log(startDate)
     }
   )
 
@@ -63,12 +65,13 @@ const MainReport = () => {
         {/* Buuton -------------------------------------- */}
         <div className="w-full flex justify-center items-center mt-10">
 
-        <button
+        <Link
+        href={`/components/Reports/driversReports/${shortStartDate}and${shortEndDate}`}
           className="w-2/6 bg-white rounded-md p-2 font-bold"
           onclick={() => console.log(keyword)}
           >
           Generate Report
-        </button>
+        </Link>
           </div>
       </div>
     </div>
