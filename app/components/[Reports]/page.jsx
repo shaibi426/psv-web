@@ -13,11 +13,12 @@ const MainReport = (props) => {
   const [startDate, setStartDate] = useState(Date());
   const [endDate, setEndDate] = useState(Date());
   const [reportName,setReportName]= useState()
+  
 
   const shortStartDate =new Date(startDate).toLocaleDateString().split('/').reverse().join('-')
   const shortEndDate =new Date(endDate).toLocaleDateString().split('/').reverse().join('-')
 
- 
+ const reportLink = `/components/Reports/driversReports/${shortStartDate}and${shortEndDate}`
   useEffect(
     ()=>{
       setReportName(props.params.Reports.split('%20').join(' '))  // as we get report name as 'a%20b' but we need it as 'a b'
@@ -65,14 +66,9 @@ const MainReport = (props) => {
         {/* Buuton -------------------------------------- */}
         <div className="w-full flex justify-center items-center mt-10">
 
-        {/* <Link
-        href={`/components/Reports/driversReports/${shortStartDate}and${shortEndDate}`}
-          className="w-2/6 bg-white rounded-md p-2 font-bold"
-          onclick={() => console.log(keyword)}
-          > */}
 
 <Link
-        href={`/components/Reports/driversReports`}
+        href={reportLink}
           className="w-2/6 bg-white rounded-md p-2 font-bold"
           onclick={() => console.log(keyword)}
           >
