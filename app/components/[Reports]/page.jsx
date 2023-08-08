@@ -34,34 +34,32 @@ const MainReport = (props) => {
       >
         {/*  Start date picker */}
         <div className=" flex flex-row bg-green-500 rounded-r-full rounded">
-          <div className="text-center p-2 text-white">Start date</div>
-        <div
+          <div className="text-center p-2 text-white w-2/5">Start date</div>
+        {/* <div
           className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
           style={containerStyles}
-        >
+        > */}
           <DatePicker
-            required
             value={startDate}
-           
             onChange={(value) => setStartDate(value)}
           />
-        </div>
+        {/* </div> */}
         </div>
         {/* end date -------------------------------------- */}
-        <div className=" flex flex-row bg-red-500 rounded-r-full">
-        <div className="text-center p-2 text-white">End date</div>
-        <div
+        <div className=" flex flex-row bg-red-500 rounded-r-full ">
+        <div className="text-center p-2 text-white w-2/5">End date</div>
+        {/* <div
           className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
           style={containerStyles}
-        >
+        > */}
          
           <DatePicker
-            required
+          
             value={endDate}
            
             onChange={(value) => setEndDate(value)}
           />
-        </div>
+        {/* </div> */}
         </div>
         {/* Buuton -------------------------------------- */}
         <div className="w-full flex justify-center items-center mt-10">
@@ -69,7 +67,7 @@ const MainReport = (props) => {
 
 <Link
         href={reportLink}
-          className="w-2/6 bg-white rounded-md p-2 font-bold"
+          className="w-2/6 bg-white rounded-md p-2 font-bold hover:decoration-transparent text-center"
           onclick={() => console.log(keyword)}
           >
           Generate Report
