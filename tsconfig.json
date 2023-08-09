@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "db.js", "pages/api/checkLicience.js", "app/components/graphs/routeGraph.jsx", "app/components/graphs/liciencePiegraph.jsx", "app/components/graphs/TrackingGraph.jsx", "app/components/graphs/Trackingline.jsx", "app/components/graphs/fitnessgraph.jsx", "app/components/sidebar.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "db.js", "pages/api/checkLicience.js", "app/components/graphs/routeGraph.jsx", "app/components/graphs/liciencePiegraph.jsx", "app/components/graphs/TrackingGraph.jsx", "app/components/graphs/Trackingline.jsx", "app/components/graphs/fitnessgraph.jsx", "app/components/sidebar.jsx", "app/components/[Reports]/generalReports/psv travvelled/page.jsx"],
   "exclude": ["node_modules"]
 }

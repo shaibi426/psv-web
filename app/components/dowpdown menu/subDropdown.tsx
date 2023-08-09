@@ -26,8 +26,10 @@ const SubDropdown = (props:NameProp, option:ListOption) => {
         <div onClick={() => setSubrptOpen(!subRptOpen)} className="bg-pmpblue absolute top-1  px-1  -left-[208px] z-50  w-[110%] rounded-md bg-opacity-95" >
           <ul className='divide-y'>
             {props.option.map((item)=>(
-                <li className ='py-2' key ={item}> 
-                <Link href ={{pathname:`/components/${item}`}} onClick ={()=>setReport(item)}>{item}</Link>
+                <li className ='py-2 ' key ={item}> 
+                <Link 
+                className=" text-pmpyellow decoration-transparent"
+                href ={{pathname:`/components/${item}`}} onClick ={()=>setReport(item)}>{item}</Link>
                 </li>
             ))}
             
