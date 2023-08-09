@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { DatePicker } from "react-rainbow-components";
+import { DatePicker, TimePicker } from "react-rainbow-components";
+
 
 const containerStyles = {
   maxWidth: 300,
@@ -10,7 +11,12 @@ const containerStyles = {
 const MainReport = (props) => {
   const [startDate, setStartDate] = useState(Date());
   const [endDate, setEndDate] = useState(Date());
+  const [startTime, setStartTime] = useState("06:00");
+  const [endTime, setEndTime] = useState("14:00");
   const [reportName, setReportName] = useState();
+  const [isTimeDiv, setTimeDiv] = useState('invisible');
+  const [isPsvDiv, setPsvDiv] = useState('invisible');
+  const [psvNo,setPsvNo] =useState('')
 
   const shortStartDate = new Date(startDate)
     .toLocaleDateString()
@@ -23,17 +29,29 @@ const MainReport = (props) => {
     .reverse()
     .join("-");
 
-  const reportLink = `/components/Reports/driversReports/${shortStartDate}and${shortEndDate}`;
+    
+    let report = props.params.Reports.split("%20").join(" ");
   useEffect(() => {
-    setReportName(props.params.Reports.split("%20").join(" ")); // as we get report name as 'a%20b' but we need it as 'a b'
-    console.log(startDate);
+    setReportName(report);
+    if(report == 'PSVs Travelled'){
+      setTimeDiv('visible')
+      setPsvDiv('visible')
+    }
+   
+   
   });
+
+  //-----------------------------report link
+
+  
+  const PSVsTrevelled = `/components/generalReports/PSvsTravelled/${shortStartDate}x${shortEndDate}x${startTime}x${endTime}x${psvNo}"`;
 
   return (
     <div className="flex justify-center items-center w-full h-screen fill bg-[url('https://media.istockphoto.com/id/1360927961/photo/abstract-background-with-interweaving-of-colored-lines-and-dots-network-connection-structure.jpg?s=170667a&w=0&k=20&c=yF8UrEJ3LO-_wD0IXKwPwtwEC5unK4sG9Q6dXF3TMRc=')] bg-blue-900  bg-blend-color-dodge bg-cover ">
       <div
         className={`w-2/5 h-3/5 bg-white rounded-md flex flex-col gap-5 justify-center items-center  bg-opacity-40`}
       >
+        <div className="flex flex-col gap-2 px-2  ">
         {/*  Start date picker */}
         <div className=" flex flex-row bg-green-500 rounded-r-full rounded">
           <div className="text-center p-2 text-white w-2/5">Start date</div>
@@ -58,13 +76,35 @@ const MainReport = (props) => {
           <DatePicker value={endDate} onChange={(value) => setEndDate(value)} />
           {/* </div> */}
         </div>
-        {/* Buuton -------------------------------------- */}
+        </div>
+
+        {/* ============================ time div*/}
+        <div className={`flex flex-row  p-5 gap-4 ${isTimeDiv}`}>
+          <TimePicker
+            value={startTime}
+            onChange={(value) => setStartTime(value)}
+            hour24
+            variant="brand"
+            />
+          <TimePicker
+            value={endTime}
+            onChange={(value) => setEndTime(value)}
+            hour24
+            />
+        </div>
+        <div className={`${isPsvDiv} flex flex-row justify-center items-center gap-3`}>
+          <label htmlFor="psv" className="text-black text-bold "> Reg.No</label>
+          <input id="psv" placeholder ='BSA4100' type='text' className='rounded-full bg-white w-full p-2'
+          value={psvNo}
+          onChange={(e)=>setPsvNo(e.target.value)}
+          />
+        </div>
+
+        {/* Button -------------------------------------- */}
         <div className="w-full flex justify-center items-center mt-10">
           <Link
-          // if reportName = "PSVs Travelled"
-            href={reportLink}
+            href={PSVsTrevelled}
             className="w-2/6 bg-white rounded-md p-2 font-bold hover:decoration-transparent text-center"
-            onclick={() => console.log(keyword)}
           >
             Generate Report
           </Link>
