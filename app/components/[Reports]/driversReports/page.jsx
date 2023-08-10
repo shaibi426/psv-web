@@ -5,7 +5,7 @@ import { downloadExcel } from "react-export-table-to-excel";
 export default function DriversReport() {
   //----------------------------------------setting data
   const [data, setData] = useState([]);
-  const today = new Date()
+
 
   //-------------------------------------------api calling for getting data
   const getDriverData = async () => {
