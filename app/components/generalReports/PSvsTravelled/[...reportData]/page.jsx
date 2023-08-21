@@ -44,9 +44,7 @@ export default function PSVsTravelled(props) {
 
   useEffect(() => {
     getPsvTrevelled();
-    console.log(Today)
-
-  
+   
   },[]);
 
   return (

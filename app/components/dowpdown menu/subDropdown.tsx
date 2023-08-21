@@ -13,8 +13,11 @@ import Link from "next/link";
 const SubDropdown = (props:NameProp, option:ListOption) => {
   const [subRptOpen, setSubrptOpen] = useState(false);
   const [Report, setReport] = useState('');
+  const [path, setPath] = useState('');
   
-
+if(Report =='Road Worthy Vehicles'){
+  setPath('/components/generalReports/roadWorthyVehicles')
+}
 
   return (
     <div>
@@ -29,7 +32,12 @@ const SubDropdown = (props:NameProp, option:ListOption) => {
                 <li className ='py-2 ' key ={item}> 
                 <Link 
                 className=" text-pmpyellow decoration-transparent"
-                href ={{pathname:`/components/${item}`}} onClick ={()=>setReport(item)}>{item}</Link>
+                
+                // href ={{pathname:`/components/${item}`}}
+
+                href ={{pathname:item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":`/components/${item}`}}
+                
+                onClick ={()=>setReport(item)}>{item}</Link>
                 </li>
             ))}
             
