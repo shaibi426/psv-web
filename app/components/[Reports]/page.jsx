@@ -136,7 +136,7 @@ const MainReport = (props) => {
         {/* Button -------------------------------------- */}
         <div className="w-full flex justify-center items-center mt-10">
           <Link
-            href={tripOfDriver}
+            href={report == "Trip of a Driver"? tripOfDriver:report == "PSVs Travelled"?PSVsTrevelled:""}
             className="w-2/6 bg-white rounded-md p-2 font-bold hover:decoration-transparent text-center"
           >
             Generate Report
@@ -148,3 +148,5 @@ const MainReport = (props) => {
 };
 
 export default MainReport;
+
+// href={reportName == "Trip of a Driver"? tripOfDriver:reportName == "PSVs Travelled"?PSVsTrevelled:""}
