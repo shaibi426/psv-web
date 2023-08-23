@@ -48,6 +48,8 @@ const MainReport = (props) => {
 
   const PSVsTrevelled = `/components/generalReports/PSvsTravelled/${shortStartDate}x${shortEndDate}x${startTime}x${endTime}x${psvNo}"`;
   const tripOfDriver = `/components/generalReports/tripOfDriver/${shortStartDate}x${shortEndDate}x${startTime}x${endTime}x${dvrCnic}"`;
+
+  const vehicleComprehansive =`/components/vehicleReports/comperihansive/${shortStartDate}x${shortEndDate}`
   return (
     <div className="flex justify-center items-center w-full h-screen fill bg-[url('https://media.istockphoto.com/id/1360927961/photo/abstract-background-with-interweaving-of-colored-lines-and-dots-network-connection-structure.jpg?s=170667a&w=0&k=20&c=yF8UrEJ3LO-_wD0IXKwPwtwEC5unK4sG9Q6dXF3TMRc=')] bg-blue-900  bg-blend-color-dodge bg-cover ">
       <div
@@ -134,9 +136,9 @@ const MainReport = (props) => {
         </div>
 
         {/* Button -------------------------------------- */}
-        <div className="w-full flex justify-center items-center mt-10">
+        <div className="w-full flex justify-center items-center mt-10 ">
           <Link
-            href={report == "Trip of a Driver"? tripOfDriver:report == "PSVs Travelled"?PSVsTrevelled:""}
+            href={report == "Trip of a Driver"? tripOfDriver:report == "PSVs Travelled"?PSVsTrevelled:report == "Comperihensive Data Report"?vehicleComprehansive:""}
             className="w-2/6 bg-white rounded-md p-2 font-bold hover:decoration-transparent text-center"
           >
             Generate Report
@@ -149,4 +151,3 @@ const MainReport = (props) => {
 
 export default MainReport;
 
-// href={reportName == "Trip of a Driver"? tripOfDriver:reportName == "PSVs Travelled"?PSVsTrevelled:""}
