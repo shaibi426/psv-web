@@ -3,6 +3,7 @@ import Image from "next/image";
 import logo from './assests/PMP LOGO.png'
 import Link from "next/link";
 import DropDown from '../components/dowpdown menu/dropdown'
+import MainMenu from './menubar/page'
 
 
 
@@ -27,6 +28,8 @@ export default function Header() {
       </div>
     </div>
 
+
+{/* <MainMenu /> */}
     <div className=" px-10  text-sm">
       <ul className="flex flex-row gap-3">
       <li className="header-links"><DropDown /></li>

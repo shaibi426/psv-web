@@ -1,5 +1,6 @@
 "use client"
 import React,{useState} from "react"
+
 import {
   ColumnDef,
   flexRender,
@@ -25,6 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Sheet } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -52,12 +54,14 @@ export function DataTable<TData, TValue>({
     },
     
   })
+
   
 
   return (
     <div>
-      <div className="flex flex-row justify-between px-3 items-center"> 
+    <div className="flex flex-row justify-between px-3 items-center border rounded-md"> 
       <div className="w/3/4">
+      
        <DropdownMenu >
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -176,6 +180,7 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
+  
     
  </div>
   )

@@ -9,7 +9,11 @@ import {handleDownloadExcel} from '../functions/exportToExcel'
 export default function ReportTemp (props) {
 return(
     <div>
-        <ReportTitle name ={props.reportName} />
+        <div className='w-full h-10 bg-gray-400 text-black text-center font-bold text-xl flex items-center justify-center'>
+            {`${props.reportName} Report`}      
+        </div>
+
+        
         <ReportButton  excelExport ={ ()=>handleDownloadExcel(props.reportName,props.data,props.header,props.starDate,props.endDate)}/>
     </div>
 )

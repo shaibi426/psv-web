@@ -1,7 +1,74 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { DataTable } from "@/app/ui/table";
 
 import ReportTemp from "../../../../ui/reportTemp";
+
+//------------------------------------------------------Report headers
+import { ColumnDef } from "@tanstack/react-table"
+
+
+const Today = new Date(Date()).toLocaleDateString()
+export const columns = [
+  {
+    accessorKey: "Sector",
+    header: "Sector",
+  },
+  {
+    accessorKey: "KM",
+    header: "Location",
+  },
+  {
+    accessorKey: "Side",
+    header: "Side",
+  },
+  {
+    accessorKey: "Time",
+    header: "Time",
+  },
+  {
+    accessorKey: "DriverName",
+    header: "Driver",
+  },
+  {
+    
+    accessorKey: "RouteExpiryDate", //
+    header: "Route",
+    cell: ({ row }) => {
+      const route = (row.getValue("RouteExpiryDate"))
+      return <div className="text-right font-medium">
+        {route.split('T')[0]>Today?"Valid":"Expired"}
+        </div>
+    },
+  
+  },
+  {
+    accessorKey: "FitnessExpiryDate",
+    header: "Fitness",
+    cell: ({ row }) => {
+      const fitness = (row.getValue("FitnessExpiryDate"))
+      return <div className="text-right font-medium">
+        {fitness.split('T')[0]>Today?"Valid":"Expired"}
+        </div>
+    },
+  },
+  {
+    accessorKey: "TypeExpiryDate",
+    header: "Tyre",
+    cell: ({ row }) => {
+      const tyre = (row.getValue("TypeExpiryDate"))
+      return <div className="text-right font-medium">
+        {tyre == null? 'N/A':tyre.split('T')[0]>Today?"Valid":"Expired"}
+        </div>
+    },
+  },
+  {
+    accessorKey: "FullName",
+    header: "Checked By",
+  },
+]
+
+
 
 export default function PSVsTravelled(props) {
   const [data, setData] = useState([])
@@ -12,8 +79,10 @@ export default function PSVsTravelled(props) {
   const endTime = reportprops[3].split("%3A").join(":");
   const psvNo = reportprops[4].split("%22")[0];
 
-  const Today = new Date(Date()).toLocaleDateString()
+ 
 
+
+  
   //-------------------------------------------api calling for getting data
   const getPsvTrevelled = async () => {
     const response = await fetch(
@@ -57,50 +126,26 @@ export default function PSVsTravelled(props) {
         endDate={endDate}
       />
 
-      <div className="w-full flex gap-5 flex-col p-4 justify-center items-center ">
-        <div className = "flex flex-col w-3/5 gap-3 justify-center items-center">
+      <div className="w-full flex flex-col p-4 justify-center items-center ">
+        <div className = "flex flex-col w-full gap-3 justify-center items-center">
 
-            <div className=" font-extrabold text-lg bg-teal-600 p-3 rounded-md">Vehicle No {`${psvNo}`}</div>
-            <div className="flex flex-row w-full justify-between items-end px-5">
-            <div className="w-3/4 flex flex-row gap-3"> <div className="w-1/6 font-bold">Date</div><div>{` From: ${startDate} To ${endDate}`}</div></div>
-            <div className="w-3/4 flex flex-row gap-3"> <div className="w-1/6 font-bold">Time</div><div>{` From: ${startTime} To ${endTime}`}</div></div>
+            <div className="justify-center items-center flex font-extrabold text-lg bg-teal-600 p-3 w-2/5 rounded-md">Vehicle No {`${psvNo}`}</div>
+            <div className="flex flex-row w-10/12 justify-between items-center gap-5 px-5">
+           
+            <div className="w-2/4 flex flex-row gap-3"> <div className="w-1/6 font-bold">Date</div><div>{` From: ${startDate} To ${endDate}`}</div></div>
+
+            <div className="w-2/4 flex flex-row justify-end gap-3"> <div className="w-1/6 font-bold">Time</div><div>{` From: ${startTime} To ${endTime}`}</div></div>
             </div>
-        {/* <div><span className="p-4  w-2/4 font-bold">Vehicle NO:</span> <span>{`${psvNo}`}</span></div>
-        <div><span className="p-4  w-2/4 font-bold">Date:  </span> <span>{`From ${startDate} to ${endDate}`}</span></div>
-        <div><span className="p-4  w-2/4 font-bold">Time:  </span> <span>{` From ${startTime} to ${endTime}`}</span></div> */}
+  
       </div>
       </div>
 
       {/* ======================================Report Data Here */}
 
-      <table className="flex justify-center items-center text-start">
-        <tbody>
-          <tr>
-      
-            {header.map((head) => (
-              <td key={head} className="bg-gray-400  font-bold  p-2 border border-black">
-                {head}
-              </td>
-            ))}
-          </tr>
-            {data.map((item)=>(
-              <tr className ="even:bg-white odd:bg-slate-300">
-                 <td className =' p-2 border border-black'>{item.Sector}</td>
-                 <td className =' p-2 border border-black'>{`${item.KM}  ${item.Side}`}</td>
-                 <td className =' p-2 border border-black'>{item.Time}</td>
-                 <td className =' p-2 border border-black'>{item.DriverName}</td>
-                 <td className =' p-2 border border-black'>{item.RouteExpiryDate.split('T')[0]>Today?"Valid":"Expired"}</td>
-                 <td className ='p-2 border border-black'>{item.FitnessExpiryDate.split('T')[0]>Today?"Valid":"Expired"}</td>
-                 <td className ='bg-gray-200 p-2 border border-black'>{item.TypeExpiryDate?.split('T')[0]>Today?"Valid":"Expired"}</td>
-                 {/* <td className =' p-2 border border-black'>{item.RouteExpiryDate.split('T')[0].split('-').reverse().join('-')}</td> */}
-                 {/* <td className =' p-2 border border-black'>{item.FitnessExpiryDate.split('T')[0].split('-').reverse().join('-')}</td> */}
-                 {/* <td className ='bg-gray-200 p-2 border border-black'>{item.TypeExpiryDate?.split('T')[0].split('-').reverse().join('-')}</td> */}
-                 <td className ='p-2 border border-black'>{item.FullName}</td>
-          </tr>  
-            )  
-            )}
-        </tbody>
-      </table>
+      <div className="container mx-auto w-11/12">
+      <DataTable columns={columns} data={data} />
+    </div>
+    
     </div>
   );
 }
