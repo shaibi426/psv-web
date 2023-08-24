@@ -76,6 +76,7 @@ export default function PSVsTravelled(props) {
       <table className="flex justify-center items-center text-start">
         <tbody>
           <tr>
+      
             {header.map((head) => (
               <td key={head} className="bg-gray-400  font-bold  p-2 border border-black">
                 {head}
