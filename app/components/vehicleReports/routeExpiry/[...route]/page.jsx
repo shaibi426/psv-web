@@ -5,78 +5,64 @@ import ReportTemp from '../../../../ui/reportTemp'
 import { DataTable } from "@/app/ui/table";
 
 //------------------------------------------------------Report headers
-import { ColumnDef } from "@tanstack/react-table"
+
 
 
 const Today = new Date(Date()).toLocaleDateString()
 
 export const columns = [
+    {
+        id:'Company',
+        accessorKey: "CompName",
+        header: "Company",
+      },
   {
-    accessorKey: "Sector",
-    header: "Sector",
+    id: "Vehicle No",
+    accessorKey: "PsvNo",
+    header: "Vehicle No",
   },
   {
-    accessorKey: "KM",
-    header: "Location",
-  },
-  {
-    accessorKey: "Side",
-    header: "Side",
-  },
-  {
-    accessorKey: "AddedON", //
-    header: "Date",
-    cell: ({ row }) => {
-      const date = (row.getValue("AddedON"))
-      return <div className="text-center font-medium">
-        {date.split('T')[0].split('-').reverse().join('-')}
-        </div>}
-  },
-  {
-    accessorKey: "Time",
-    header: "Time",
-  },
-  {
-    accessorKey: "DriverName",
-    header: "Reg. No",
-  },
-  {
-    accessorKey: "RegNo",
-    header: "Driver Name",
-  },
-  {
-    accessorKey: "LicenseExpiry", //
-    header: "License Expiry",
-    cell: ({ row }) => {
-      const date = (row.getValue("LicenseExpiry"))
-      return <div className="text-center font-medium">
-        {date.split('T')[0]>Today?"Valid":"Expired"}
-        </div>}
-  },
-  {
-    accessorKey: "FullName",
-    header: "Checked by",
+    id:'Modal',
+    accessorKey: "VehicleModel",
+    header: "Modal",
   },
  
+  {
+    
+    id: "AC/Non-AC",
+    accessorKey: "ACStatus", //
+    header: "AC/Non-AC",
+    cell: ({ row }) => {
+      const ac = row.id
+      return <div className="text-start font-medium">
+       {ac==1?"AC":"Non-AC"}
+        </div>}
+  },
+  {
+    id: "Colour",
+    accessorKey: "VehicelColor",
+    header: "Colour",
+  },
+ 
+ 
 ]
-export default function TripOfDriver(props) {
+export default function RouteExpiry(props) {
   const [data, setData] = useState([])
-  const [Driver, setDriver] = useState('')
-  const [license, setLicense] = useState('')
-  const reportprops = props.params.reportData[0].split("x");
+  
+  const reportprops = props.params.route[0].split("x");
   const startDate = reportprops[0];
   const endDate = reportprops[1];
-  const startTime = reportprops[2].split("%3A").join(":");
-  const endTime = reportprops[3].split("%3A").join(":");
-  const driverCNI = reportprops[4].split("%22")[0];
+//   const startTime = reportprops[2].split("%3A").join(":");
+//   const endTime = reportprops[3].split("%3A").join(":");
+  
 
   const Today = new Date(Date()).toLocaleDateString()
   
 
   //-------------------------------------------api calling for getting data
-  const getTripOfDriver = async () => {
+  const getData = async () => {
     const response = await fetch(
-      `/api/generalReports/tripOfDriver/'${startDate}'/'${endDate}'/'${startTime}'/'${endTime}'/'${driverCNI}'`,
+      `/api/vehicleReports/routeExpiry/'${startDate}'/'${endDate}'`,
       {
         method: "GET",
         headers: {
@@ -89,22 +75,19 @@ export default function TripOfDriver(props) {
   };
 
   //------------------------------------------------------excel headers
+
   const header = [
-    "Sector",
-    "Location",
-    "Side",
-    "Date",
-    "Time",
-    "vehicle No",
-    'DriverName',
-    "Lisence No",
-    "License Expiry",
-    "Checked By",
+    "Company",
+    "Reg No",
+    "Modal",
+    "AC/Non-AC",
+    "Colour",
+    
   ]; //table heads
   //-----------getting data on page load
 
   useEffect(() => {
-    getTripOfDriver();
+    getData();
     console.log(data[0])
    
   },[data]);
@@ -112,7 +95,7 @@ export default function TripOfDriver(props) {
   return (
     <div>
       <ReportTemp
-        reportName="Trip Of Driver"
+        reportName="Route Expiry Report"
         header={header}
         data={data}
         starDate={startDate}
@@ -127,7 +110,7 @@ export default function TripOfDriver(props) {
             </div>
             <div className="flex flex-row w-full justify-between items-end px-5">
             <div className="w-3/4 flex flex-row gap-3"> <div className="w-1/6 font-bold">Date</div><div>{` From: ${startDate} To ${endDate}`}</div></div>
-            <div className="w-3/4 flex flex-row gap-3"> <div className="w-1/6 font-bold">Time</div><div>{` From: ${startTime} To ${endTime}`}</div></div>
+            {/* <div className="w-3/4 flex flex-row gap-3"> <div className="w-1/6 font-bold">Time</div><div>{` From: ${startTime} To ${endTime}`}</div></div> */}
             </div>
       </div>
       </div>

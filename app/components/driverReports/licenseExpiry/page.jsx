@@ -1,8 +1,10 @@
+//  /api/driverReports/licenseExpiry app/components/driverReports/licenseExpiry\page.jsx
+
 "use client";
 import React, { useState, useEffect } from "react";
 
 import ReportTemp from '../../../ui/reportTemp'
-import {DataTable} from '../../../ui/table'
+import { DataTable } from "@/app/ui/table";
 
 //------------------------------------------------------Report headers
 import { ColumnDef } from "@tanstack/react-table"
@@ -11,41 +13,42 @@ import { ColumnDef } from "@tanstack/react-table"
 const Today = new Date(Date()).toLocaleDateString()
 
 export const columns = [
+    {
+        accessorKey: "Company",
+        header: "Company",
+      },
   {
-    accessorKey: "CompName",
-    header: "Company",
+    accessorKey: "DriverName",
+    header: "Driver Name",
   },
   {
-    accessorKey: "RegNo",
-    header: "Registration No",
+    accessorKey: "CNIC",
+    header: "Driver CNIC",
   },
   {
-    accessorKey: "EngineNo",
-    header: "Engine No",
-  },
-  {
-    accessorKey: "ChasisNo",
-    header: "Chasis No",
-  },
-  {
-    accessorKey: "VehicleMake",
-    header: "Made By",
-  },
-  {
-    accessorKey: "ManufactureYear",
-    header: "Modal",
+    accessorKey: "Address",
+    header: "Address",
   },
  
+  {
+    accessorKey: "LicenseExpiry",
+    header: "Expiry Date",
+    cell: ({ row }) => {
+        const date = (row.getValue("LicenseExpiry"))
+        return <div className="text-center font-medium">
+          {date.split('T')[0].split('-').reverse().join('-')}
+          </div>}
+  },
+ 
+ 
+  
 ]
-
-
-export default function RoadWorthyVehicle(props) {
-  const [data, setData] = useState([])
-//  
+export default function LicenseExpiry(props) {
+  const [data, setData] = useState([]) 
   //-------------------------------------------api calling for getting data
-  const getWorthyVehicles = async () => {
+  const getData = async () => {
     const response = await fetch(
-      `/api/generalReports/roadWorthyVehicles`,
+      `/api/driverReports/licenseExpiry`,
       {
         method: "GET",
         headers: {
@@ -59,32 +62,39 @@ export default function RoadWorthyVehicle(props) {
 
   //------------------------------------------------------excel headers
   const header = [
-    "Company",
-    "Registration No",
-    "Engine No",
-    "Chasis No",
-    "Made By",
-    'Modal',,
+   
+    "DriverName",
+    "CNIC",
+    "Address",
+    "CellNo",
+    "License No",
+    "Expiry",
+    'Company',
+   
   ]; //table heads
   //-----------getting data on page load
 
   useEffect(() => {
-    getWorthyVehicles();
+    getData();
+   
+   
   },[data]);
 
   return (
     <div>
       <ReportTemp
-        reportName="Road Worthy Vehicles"
+        reportName=" License Expiry Report"
         header={header}
         data={data}
+        // starDate={startDate}
+        // endDate={endDate}
       />
 
       {/* ======================================Report Data Here */}
-
       <div className="container mx-auto w-11/12">
       <DataTable columns={columns} data={data} />
     </div>
+      
     </div>
   );
 }
