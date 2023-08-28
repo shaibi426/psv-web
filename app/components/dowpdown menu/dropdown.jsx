@@ -53,8 +53,8 @@ export default function DropDown() {
                     name="Vehicles Report"
                     option={[
                       "Date Wise Report",
-                      "Comperihensive Data Report",
-                      "transport Company Report",
+                      "Comperehensive Data Report",
+                      "Transport Company Report",
                       "Vehicle Type-Model Report",
                       "Route Report",
                       "Tyre Condition Report",

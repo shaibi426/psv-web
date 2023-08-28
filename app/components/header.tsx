@@ -29,7 +29,7 @@ export default function Header() {
     </div>
 
 
-{/* <MainMenu /> */}
+<MainMenu />
     <div className=" px-10  text-sm">
       <ul className="flex flex-row gap-3">
       <li className="header-links"><DropDown /></li>

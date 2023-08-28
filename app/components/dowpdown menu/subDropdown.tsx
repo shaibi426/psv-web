@@ -20,13 +20,13 @@ if(Report =='Road Worthy Vehicles'){
 }
 
   return (
-    <div>
-      <div onMouseEnter={() => setSubrptOpen(true)} onMouseLeave={()=>setSubrptOpen(false)} className="flex flex-row text-center justify-center w-full items-center relative">
-        <div>
+    <div className="">
+      <div onMouseEnter={() => setSubrptOpen(true)} onMouseLeave={()=>setSubrptOpen(false)} className="flex flex-row text-center justify-center  items-center relative">
+        <div className="">
         {props.name}
           </div>
       {subRptOpen && (
-        <div onClick={() => setSubrptOpen(!subRptOpen)} className="bg-pmpblue absolute top-1  px-1  -left-[208px] z-50  w-[110%] rounded-md bg-opacity-95" >
+        <div onClick={() => setSubrptOpen(!subRptOpen)} className="bg-pmpblue absolute top-1  px-1  -left-full z-50  w-[200px] rounded-md bg-opacity-95" >
           <ul className='divide-y'>
             {props.option.map((item)=>(
                 <li className ='py-2 ' key ={item}> 

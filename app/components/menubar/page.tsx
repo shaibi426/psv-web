@@ -1,3 +1,7 @@
+"use client"
+import React,{useState} from "react"
+import Arrowdown from "../dowpdown menu/arrow"
+import Link from "next/link"
 import {
     Menubar,
     MenubarCheckboxItem,
@@ -14,94 +18,99 @@ import {
     MenubarTrigger,
   } from "@/components/ui/menubar"
   
+  const GenReports =[
+    "PSVs Travelled",
+    "Trip of a Driver",
+    "Road Worthy Vehicles",
+    "Warned Vehicles",
+    "Enforced Vehicles",
+    "Returned vehicles",
+    "Companies Banned",
+    "Drivers Banned",
+    "vehicles Banned",
+    "Total Boarded Passengers"
+  ]
+  const VehReports=[
+    "Date Wise Report",
+    "Comperehensive Data Report",
+    "Transport Company Report",
+    "Vehicle Type-Model Report",
+    "Route Report",
+    "Tyre Condition Report",
+    "Route Permit Expiry Report",
+    "Vehicle Fitness Expiry Report",
+   
+  ]
+  const DriversReport= [
+    "License Report",
+    "License Expiry Report",
+    "Licience Verification Report",
+    "Licience Autherity Report",
+  ]
+ 
   export default function MainMenu() {
+    const [isOpen, setIsOpen] = useState(false)
     return (
-      <Menubar>
-        <MenubarMenu>
-          <MenubarTrigger>File</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>
-              New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-            </MenubarItem>
-            <MenubarItem>
-              New Window <MenubarShortcut>⌘N</MenubarShortcut>
-            </MenubarItem>
-            <MenubarItem disabled>New Incognito Window</MenubarItem>
-            <MenubarSeparator />
+      <Menubar className="border-0">
+       
+        <MenubarMenu >
+          <MenubarTrigger onClick={() => setIsOpen(!isOpen)}>
+          <span> Reports </span>
+          <div
+            className={isOpen ? "rotate-180 transition" : "transition rotate-0"}
+          >
+            <Arrowdown />
+          </div>
+          </MenubarTrigger>
+        
+         
+          <MenubarContent className= "bg-pmpblue bg-opacity-90 text-white divide-y border-0">
+        
+           
+                 {/* =======================================================Gen report */}
             <MenubarSub>
-              <MenubarSubTrigger>Share</MenubarSubTrigger>
-              <MenubarSubContent>
-                <MenubarItem>Email link</MenubarItem>
-                <MenubarItem>Messages</MenubarItem>
-                <MenubarItem>Notes</MenubarItem>
+              <MenubarSubTrigger>General Reports</MenubarSubTrigger>
+              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-white divide-y border-0">
+                {GenReports.map(item=>(
+                   <MenubarItem>{item}</MenubarItem>
+                ))}
+              
               </MenubarSubContent>
             </MenubarSub>
-            <MenubarSeparator />
-            <MenubarItem>
-              Print... <MenubarShortcut>⌘P</MenubarShortcut>
-            </MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Edit</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem>
-              Undo <MenubarShortcut>⌘Z</MenubarShortcut>
-            </MenubarItem>
-            <MenubarItem>
-              Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
-            </MenubarItem>
-            <MenubarSeparator />
+                 {/* =======================================================vehicle report */}
             <MenubarSub>
-              <MenubarSubTrigger>Find</MenubarSubTrigger>
-              <MenubarSubContent>
-                <MenubarItem>Search the web</MenubarItem>
-                <MenubarSeparator />
-                <MenubarItem>Find...</MenubarItem>
-                <MenubarItem>Find Next</MenubarItem>
-                <MenubarItem>Find Previous</MenubarItem>
+              <MenubarSubTrigger>Vehicle Reports</MenubarSubTrigger>
+              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-white divide-y  border-0">
+                {VehReports.map(item=>(
+                   <MenubarItem className ="text-pm" >
+                    <Link href={`/components/${item}`} className=" deccoration-transparent"> {item}</Link>
+                    </MenubarItem>
+                ))}
+              
               </MenubarSubContent>
             </MenubarSub>
-            <MenubarSeparator />
-            <MenubarItem>Cut</MenubarItem>
-            <MenubarItem>Copy</MenubarItem>
-            <MenubarItem>Paste</MenubarItem>
+            {/* =======================================================Driver report */}
+            <MenubarSub>
+              <MenubarSubTrigger>Vehicle Reports</MenubarSubTrigger>
+              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-white divide-y  border-0">
+                {DriversReport.map(item=>(
+                   <MenubarItem>{item}</MenubarItem>
+                ))}
+              
+              </MenubarSubContent>
+            </MenubarSub>
+           
           </MenubarContent>
         </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>View</MenubarTrigger>
-          <MenubarContent>
-            <MenubarCheckboxItem>Always Show Bookmarks Bar</MenubarCheckboxItem>
-            <MenubarCheckboxItem checked>
-              Always Show Full URLs
-            </MenubarCheckboxItem>
-            <MenubarSeparator />
-            <MenubarItem inset>
-              Reload <MenubarShortcut>⌘R</MenubarShortcut>
-            </MenubarItem>
-            <MenubarItem disabled inset>
-              Force Reload <MenubarShortcut>⇧⌘R</MenubarShortcut>
-            </MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem inset>Toggle Fullscreen</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem inset>Hide Sidebar</MenubarItem>
-          </MenubarContent>
+
+
+        <MenubarMenu >
+        <MenubarTrigger>Home</MenubarTrigger>
         </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>Profiles</MenubarTrigger>
-          <MenubarContent>
-            <MenubarRadioGroup value="benoit">
-              <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
-              <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
-              <MenubarRadioItem value="Luis">Luis</MenubarRadioItem>
-            </MenubarRadioGroup>
-            <MenubarSeparator />
-            <MenubarItem inset>Edit...</MenubarItem>
-            <MenubarSeparator />
-            <MenubarItem inset>Add Profile...</MenubarItem>
-          </MenubarContent>
+        <MenubarMenu >
+        <MenubarTrigger>Dash Board</MenubarTrigger>
         </MenubarMenu>
+
       </Menubar>
     )
   }
