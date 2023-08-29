@@ -84,19 +84,21 @@ export default function PSVsTravelled(props) {
 
   
   //-------------------------------------------api calling for getting data
-  const getPsvTrevelled = async () => {
-    const response = await fetch(
-      `/api/generalReports/'${startDate}'/'${endDate}'/'${startTime}'/'${endTime}'/'${psvNo}'`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const result = await response.json();
-    setData(result);
-  };
+  // const getPsvTrevelled = async () => {
+  //   const response = await fetch(
+  //     `/api/generalReports/'${startDate}'/'${endDate}'/'${startTime}'/'${endTime}'/'${psvNo}'`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+         
+  //       },
+  //     }
+  //   );
+  //   const result = await response.json();
+  //   setData(result);
+    
+  // };
 
   //------------------------------------------------------excel headers
   const header = [
@@ -112,9 +114,25 @@ export default function PSVsTravelled(props) {
   //-----------getting data on page load
 
   useEffect(() => {
+    const getPsvTrevelled = async () => {
+      const response = await fetch(
+        `/api/generalReports/'${startDate}'/'${endDate}'/'${startTime}'/'${endTime}'/'${psvNo}'`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+           
+          },
+        }
+      );
+      const result = await response.json();
+      setData(result);
+      
+    };
     getPsvTrevelled();
+     
    
-  },[]);
+  },[data]);
 
   return (
     <div>

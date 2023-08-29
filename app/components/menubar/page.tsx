@@ -32,7 +32,7 @@ import {
   ]
   const VehReports=[
     "Date Wise Report",
-    "Comperehensive Data Report",
+    "Comprehensive Data Report",
     "Transport Company Report",
     "Vehicle Type-Model Report",
     "Route Report",
@@ -97,10 +97,10 @@ import {
             </MenubarSub>
             {/* =======================================================Driver report */}
             <MenubarSub>
-              <MenubarSubTrigger>Vehicle Reports</MenubarSubTrigger>
+              <MenubarSubTrigger>Driver Reports</MenubarSubTrigger>
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y  border-0">
               {DriversReport.map(item=>(
-                  <Link href={item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":`/components/${item}`} className="hover:no-underline">
+                  <Link href={item=='License Expiry Report'?"/components/driverReports/licenseExpiry":`/components/${item}`} className="hover:no-underline">
                    <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
                      {item}
                     </MenubarItem>

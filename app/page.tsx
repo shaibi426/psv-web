@@ -30,7 +30,7 @@ export default function Home() {
         <input className='rounded-sm p-2 text w-full' placeholder='User' type ='text'/>
         <input className='rounded-sm p-2 text w-full' placeholder='Passward' type='password'/>
         <div className='flex w-full justify-end pt-10'>
-        <button className='bg-blue-500 p-2 w-3/5 rounded-md'>Sign in</button>
+        <button className='bg-blue-500 p-2 w-3/5 rounded-md text-white font-semibold'>Sign in</button>
         </div>
         
         <div className='mt-20 text-center'>

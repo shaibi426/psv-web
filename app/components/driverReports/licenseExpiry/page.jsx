@@ -78,12 +78,12 @@ export default function LicenseExpiry(props) {
     getData();
    
    
-  },[data]);
+  },[]);
 
   return (
     <div>
       <ReportTemp
-        reportName=" License Expiry Report"
+        reportName=" License Expiry"
         header={header}
         data={data}
         // starDate={startDate}
