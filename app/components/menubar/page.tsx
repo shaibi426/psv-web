@@ -54,7 +54,7 @@ import {
       <Menubar className="border-0">
        
         <MenubarMenu >
-          <MenubarTrigger onClick={() => setIsOpen(!isOpen)}>
+          <MenubarTrigger onClick={() => setIsOpen(!isOpen)} className="hover:bg-white hover:text-pmpblue rounded-md">
           <span> Reports </span>
           <div
             className={isOpen ? "rotate-180 transition" : "transition rotate-0"}
@@ -64,15 +64,19 @@ import {
           </MenubarTrigger>
         
          
-          <MenubarContent className= "bg-pmpblue bg-opacity-90 text-white divide-y border-0">
+          <MenubarContent className= "bg-pmpblue bg-opacity-90 text-yellow-400 divide-y border-0">
         
            
                  {/* =======================================================Gen report */}
             <MenubarSub>
               <MenubarSubTrigger>General Reports</MenubarSubTrigger>
-              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-white divide-y border-0">
-                {GenReports.map(item=>(
-                   <MenubarItem>{item}</MenubarItem>
+              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y border-0">
+              {GenReports.map(item=>(
+                  <Link href={item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":`/components/${item}`} className="hover:no-underline">
+                   <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
+                     {item}
+                    </MenubarItem>
+                    </Link>
                 ))}
               
               </MenubarSubContent>
@@ -80,11 +84,13 @@ import {
                  {/* =======================================================vehicle report */}
             <MenubarSub>
               <MenubarSubTrigger>Vehicle Reports</MenubarSubTrigger>
-              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-white divide-y  border-0">
+              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 border-0">
                 {VehReports.map(item=>(
-                   <MenubarItem className ="text-pm" >
-                    <Link href={`/components/${item}`} className=" deccoration-transparent"> {item}</Link>
+                  <Link href={`/components/${item}`} className="hover:no-underline">
+                   <MenubarItem className ="text-yellow-400  hover:text-yellow-400 hover:font-semibold transition-all" >
+                     {item}
                     </MenubarItem>
+                    </Link>
                 ))}
               
               </MenubarSubContent>
@@ -92,9 +98,13 @@ import {
             {/* =======================================================Driver report */}
             <MenubarSub>
               <MenubarSubTrigger>Vehicle Reports</MenubarSubTrigger>
-              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-white divide-y  border-0">
-                {DriversReport.map(item=>(
-                   <MenubarItem>{item}</MenubarItem>
+              <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y  border-0">
+              {DriversReport.map(item=>(
+                  <Link href={item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":`/components/${item}`} className="hover:no-underline">
+                   <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
+                     {item}
+                    </MenubarItem>
+                    </Link>
                 ))}
               
               </MenubarSubContent>
@@ -105,10 +115,14 @@ import {
 
 
         <MenubarMenu >
-        <MenubarTrigger>Home</MenubarTrigger>
+        <Link href="/" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <MenubarTrigger >Home</MenubarTrigger>
+        </Link>
         </MenubarMenu>
         <MenubarMenu >
-        <MenubarTrigger>Dash Board</MenubarTrigger>
+        <Link href="/dashboard" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <MenubarTrigger >Dash Board</MenubarTrigger>
+        </Link>
         </MenubarMenu>
 
       </Menubar>

@@ -17,6 +17,10 @@ module.exports = {
         'pmpblue2':'#00308f',
         'pmpblue3':'  #012754  ',
         'pmpyellow':'#feb908'
+      },
+      fontFamily:{
+        bungeefont:['Bungee Spice'],
+        prompt:['Prompt']
       }
     },
   },

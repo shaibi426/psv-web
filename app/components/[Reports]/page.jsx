@@ -13,7 +13,7 @@ const MainReport = (props) => {
   const [startTime, setStartTime] = useState("06:00");
   const [endTime, setEndTime] = useState("14:00");
   const [reportName, setReportName] = useState();
-  const [isTimeDiv, setTimeDiv] = useState("invisible");
+  const [isTimeDiv, setTimeDiv] = useState("hidden");
   const [isPsvDiv, setPsvDiv] = useState("hidden");
   const [isCnicDiv, setCnicDiv] = useState("hidden");
   const [psvNo, setPsvNo] = useState("");
@@ -34,11 +34,11 @@ const MainReport = (props) => {
   useEffect(() => {
     setReportName(report);
     if (report == "PSVs Travelled") {
-      setTimeDiv("visible");
+      setTimeDiv("block");
       setPsvDiv("block");
     }
     if (report == "Trip of a Driver") {
-      setTimeDiv("visible");
+      setTimeDiv("block");
       setCnicDiv("block");
     }
   });
@@ -55,18 +55,15 @@ const MainReport = (props) => {
   const comprehansiveReport =`/components/vehicleReports/comperihansive/${shortStartDate}x${shortEndDate}`
 
   return (
-    <div className="flex justify-center items-center w-full h-screen fill bg-[url('https://media.istockphoto.com/id/1360927961/photo/abstract-background-with-interweaving-of-colored-lines-and-dots-network-connection-structure.jpg?s=170667a&w=0&k=20&c=yF8UrEJ3LO-_wD0IXKwPwtwEC5unK4sG9Q6dXF3TMRc=')] bg-blue-900  bg-blend-color-dodge bg-cover ">
+    <div className="flex justify-center items-center w-full h-screen fill bg-[url('https://i0.wp.com/backgroundabstract.com/wp-content/uploads/edd/2022/01/gradient-network-connection-background_23-2148865392-e1656081168680.jpg?fit=626%2C417&ssl=1')] bg-pmpblue bg-blend-color-dodge bg-cover ">
       <div
-        className={`w-2/5 h-3/5 bg-white rounded-md flex flex-col gap-5 justify-center items-center  bg-opacity-40`}
+        className={`w-3/6 h-3/5 rounded-md flex flex-col gap-5 justify-center items-center  border border-white bg-white bg-opacity-10`}
       >
-        <div className="flex flex-col gap-2 px-2  ">
+        <div className="flex flex-row gap-4 px-3  ">
           {/*  Start date picker */}
           <div className=" flex flex-row bg-green-500 rounded-r-full rounded">
             <div className="text-center p-2 text-white w-2/5">Start date</div>
-            {/* <div
-          className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
-          style={containerStyles}
-        > */}
+        
             <DatePicker
               value={startDate}
               onChange={(value) => setStartDate(value)}
@@ -76,10 +73,7 @@ const MainReport = (props) => {
           {/* end date -------------------------------------- */}
           <div className=" flex flex-row bg-red-500 rounded-r-full ">
             <div className="text-center p-2 text-white w-2/5">End date</div>
-            {/* <div
-          className="rainbow-align-content_center rainbow-m-vertical_large rainbow-p-horizontal_small rainbow-m_auto"
-          style={containerStyles}
-        > */}
+           
 
             <DatePicker
               value={endDate}
@@ -90,24 +84,30 @@ const MainReport = (props) => {
         </div>
 
         {/* ============================ time div*/}
-        <div className={`flex flex-row  p-5 gap-4 ${isTimeDiv}`}>
+        <div className={`flex flex-row gap-4 px-3 ${isTimeDiv}`}>
+        <div className=" flex flex-row bg-teal-500 rounded-r-full rounded">
+            <div className="text-center p-2 text-white w-2/5">Start Time</div>
           <TimePicker
             value={startTime}
             onChange={(value) => setStartTime(value)}
             hour24
             variant="brand"
           />
+          </div>
+          <div className=" flex flex-row bg-orange-500 rounded-r-full rounded">
+            <div className="text-center p-2 text-white w-2/5">End Time</div>
           <TimePicker
             value={endTime}
             onChange={(value) => setEndTime(value)}
             hour24
           />
+          </div>
         </div>
         {/* =====================================to get psv number */}
         <div
-          className={`${isPsvDiv} flex flex-row justify-center items-center gap-3`}
+          className={`${isPsvDiv} flex flex-row justify-center items-center gap-3 mt-10 bg-violet-400 rounded-r-full `}
         >
-          <label htmlFor="psv" className="text-black text-bold ">
+          <label htmlFor="psv" className="text-black font-bold w-3/6 pl-2 ">
             {" "}
             Reg.No
           </label>
@@ -123,9 +123,9 @@ const MainReport = (props) => {
 
         {/* =====================================to get driver cnic no  number */}
         <div
-          className={`${isCnicDiv} flex flex-row justify-center items-center gap-3`}
+          className={`${isCnicDiv} flex flex-row justify-center items-center gap-3  mt-10 bg-violet-400 rounded-r-full`}
         >
-          <label htmlFor="dvrcnic" className="text-black text-bold w-2/5 ">
+          <label htmlFor="dvrcnic" className="text-black font-bold w-3/6   text-center rounded-full">
             {" "}
             Driver CNIC
           </label>
@@ -143,7 +143,7 @@ const MainReport = (props) => {
         <div className="w-full flex justify-center items-center mt-10 ">
           <Link
             href={report == "Trip of a Driver"? tripOfDriver:report == "PSVs Travelled"?PSVsTrevelled:report == "Comperihensive Data Report"?vehicleComprehansive:report =="Route Permit Expiry Report"?routeExpiryReport:report =="Vehicle Fitness Expiry Report"?fitnessExpiryReport:report =="Vehicle Fitness Expiry Report"?comprehansiveReport:""}
-            className="w-2/6 bg-white rounded-md p-2 font-bold hover:decoration-transparent text-center"
+            className="w-2/6 bg-white rounded-md p-2 font-bold hover:no-underline text-pmpblue text-center"
           >
             Generate Report
           </Link>
