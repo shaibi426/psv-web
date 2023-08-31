@@ -114,13 +114,13 @@ import {
         </MenubarMenu>
 
 
-        <MenubarMenu >
+        {/* <MenubarMenu >
         <Link href="/" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >Home</MenubarTrigger>
         </Link>
-        </MenubarMenu>
+        </MenubarMenu> */}
         <MenubarMenu >
-        <Link href="/" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <Link href="/login" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >Log out</MenubarTrigger>
         </Link>
         </MenubarMenu>
