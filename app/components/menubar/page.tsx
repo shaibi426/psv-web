@@ -120,8 +120,8 @@ import {
         </Link>
         </MenubarMenu>
         <MenubarMenu >
-        <Link href="/dashboard" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
-        <MenubarTrigger >Dash Board</MenubarTrigger>
+        <Link href="/" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <MenubarTrigger >Log out</MenubarTrigger>
         </Link>
         </MenubarMenu>
 
