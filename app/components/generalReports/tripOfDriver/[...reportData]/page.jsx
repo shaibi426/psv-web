@@ -5,60 +5,11 @@ import ReportTemp from '../../../../ui/reportTemp'
 import { DataTable } from "@/app/ui/table";
 
 //------------------------------------------------------Report headers
-import { ColumnDef } from "@tanstack/react-table"
+import { rptCol, columns } from "./columns"
 
 
 const Today = new Date(Date()).toLocaleDateString()
 
-export const columns = [
-  {
-    accessorKey: "Sector",
-    header: "Sector",
-  },
-  {
-    accessorKey: "KM",
-    header: "Location",
-  },
-  {
-    accessorKey: "Side",
-    header: "Side",
-  },
-  {
-    accessorKey: "AddedON", //
-    header: "Date",
-    cell: ({ row }) => {
-      const date = (row.getValue("AddedON"))
-      return <div className="text-center font-medium">
-        {date.split('T')[0].split('-').reverse().join('-')}
-        </div>}
-  },
-  {
-    accessorKey: "Time",
-    header: "Time",
-  },
-  {
-    accessorKey: "DriverName",
-    header: "Reg. No",
-  },
-  {
-    accessorKey: "RegNo",
-    header: "Driver Name",
-  },
-  {
-    accessorKey: "LicenseExpiry", //
-    header: "License Expiry",
-    cell: ({ row }) => {
-      const date = (row.getValue("LicenseExpiry"))
-      return <div className="text-center font-medium">
-        {date.split('T')[0]>Today?"Valid":"Expired"}
-        </div>}
-  },
-  {
-    accessorKey: "FullName",
-    header: "Checked by",
-  },
- 
-]
 export default function TripOfDriver(props) {
   const [data, setData] = useState([])
   const [Driver, setDriver] = useState('')
@@ -73,21 +24,7 @@ export default function TripOfDriver(props) {
   const Today = new Date(Date()).toLocaleDateString()
   
 
-  //-------------------------------------------api calling for getting data
-  const getTripOfDriver = async () => {
-    const response = await fetch(
-      `/api/generalReports/tripOfDriver/'${startDate}'/'${endDate}'/'${startTime}'/'${endTime}'/'${driverCNI}'`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const result = await response.json();
-    setData(result);
-  };
-
+  
   //------------------------------------------------------excel headers
   const header = [
     "Sector",
@@ -104,10 +41,25 @@ export default function TripOfDriver(props) {
   //-----------getting data on page load
 
   useEffect(() => {
+    //-------------------------------------------api calling for getting data
+  const getTripOfDriver = async () => {
+    const response = await fetch(
+      `/api/generalReports/tripOfDriver/'${startDate}'/'${endDate}'/'${startTime}'/'${endTime}'/'${driverCNI}'`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await response.json();
+    setData(result);
+  };
+
     getTripOfDriver();
-    console.log(data[0])
+
    
-  },[data]);
+  },[driverCNI,endDate,endTime,startDate,startTime]);
 
   return (
     <div>

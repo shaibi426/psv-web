@@ -96,7 +96,7 @@ export function DataTable<TData, TValue>({
        variant="outline"
        size="sm"
           onClick={() => table.setPageIndex(0)}
-          disabled={!table.getCanPreviousPage()}
+          // disabled={!table.getCanPreviousPage()}
         >
           First
         </Button>
@@ -115,15 +115,14 @@ export function DataTable<TData, TValue>({
             {table.getPageCount()}
           </strong>
         </span>
-     <Button
-    
-       variant="outline"
-       size="sm"
-       onClick={() => table.nextPage()}
-       disabled={!table.getCanNextPage()}
-     >
-       Next
-     </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
      <Button
     
        variant="outline"
@@ -137,6 +136,7 @@ export function DataTable<TData, TValue>({
    </div>
   
     <div className="rounded-md border">
+      
       <Table>
         <TableHeader className="bg-slate-300">
           {table.getHeaderGroups().map((headerGroup) => (

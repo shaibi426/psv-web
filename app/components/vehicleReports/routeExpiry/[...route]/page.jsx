@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 import ReportTemp from '../../../../ui/reportTemp'
 import { DataTable } from "@/app/ui/table";
+import {columns} from './columns'
 
 //------------------------------------------------------Report headers
 
@@ -10,42 +11,7 @@ import { DataTable } from "@/app/ui/table";
 
 const Today = new Date(Date()).toLocaleDateString()
 
-export const columns = [
-    {
-        id:'Company',
-        accessorKey: "CompName",
-        header: "Company",
-      },
-  {
-    id: "Vehicle No",
-    accessorKey: "PsvNo",
-    header: "Vehicle No",
-  },
-  {
-    id:'Modal',
-    accessorKey: "VehicleModel",
-    header: "Modal",
-  },
- 
-  {
-    
-    id: "AC/Non-AC",
-    accessorKey: "ACStatus", //
-    header: "AC/Non-AC",
-    cell: ({ row }) => {
-      const ac = row.id
-      return <div className="text-start font-medium">
-       {ac==1?"AC":"Non-AC"}
-        </div>}
-  },
-  {
-    id: "Colour",
-    accessorKey: "VehicelColor",
-    header: "Colour",
-  },
- 
- 
-]
+
 export default function RouteExpiry(props) {
   const [data, setData] = useState([])
   
@@ -59,20 +25,20 @@ export default function RouteExpiry(props) {
   const Today = new Date(Date()).toLocaleDateString()
   
 
-  //-------------------------------------------api calling for getting data
-  const getData = async () => {
-    const response = await fetch(
-      `/api/vehicleReports/routeExpiry/'${startDate}'/'${endDate}'`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const result = await response.json();
-    setData(result);
-  };
+  // //-------------------------------------------api calling for getting data
+  // const getData = async () => {
+  //   const response = await fetch(
+  //     `/api/vehicleReports/routeExpiry/'${startDate}'/'${endDate}'`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+  //   const result = await response.json();
+  //   setData(result);
+  // };
 
   //------------------------------------------------------excel headers
 
@@ -87,10 +53,24 @@ export default function RouteExpiry(props) {
   //-----------getting data on page load
 
   useEffect(() => {
+      //-------------------------------------------api calling for getting data
+  const getData = async () => {
+    const response = await fetch(
+      `/api/vehicleReports/routeExpiry/'${startDate}'/'${endDate}'`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await response.json();
+    setData(result);
+  };
     getData();
-    console.log(data[0])
+ 
    
-  },[data]);
+  },[startDate,endDate]);
 
   return (
     <div>

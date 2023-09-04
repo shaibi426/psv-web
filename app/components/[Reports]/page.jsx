@@ -41,7 +41,7 @@ const MainReport = (props) => {
       setTimeDiv("block");
       setCnicDiv("block");
     }
-  });
+  },[report]);
 
   //-----------------------------report link 
   console.log(reportName,);

@@ -3,41 +3,10 @@ import React, { useState, useEffect } from "react";
 
 import ReportTemp from '../../../ui/reportTemp'
 import {DataTable} from '../../../ui/table'
+import { rptCol, columns } from "./columns"
 
 //------------------------------------------------------Report headers
-import { ColumnDef } from "@tanstack/react-table"
-
-
 const Today = new Date(Date()).toLocaleDateString()
-
-export const columns = [
-  {
-    accessorKey: "CompName",
-    header: "Company",
-  },
-  {
-    accessorKey: "RegNo",
-    header: "Registration No",
-  },
-  {
-    accessorKey: "EngineNo",
-    header: "Engine No",
-  },
-  {
-    accessorKey: "ChasisNo",
-    header: "Chasis No",
-  },
-  {
-    accessorKey: "VehicleMake",
-    header: "Made By",
-  },
-  {
-    accessorKey: "ManufactureYear",
-    header: "Modal",
-  },
- 
-]
-
 
 export default function RoadWorthyVehicle(props) {
   const [data, setData] = useState([])
@@ -70,7 +39,7 @@ export default function RoadWorthyVehicle(props) {
 
   useEffect(() => {
     getWorthyVehicles();
-  },[data]);
+  },[]);
 
   return (
     <div>

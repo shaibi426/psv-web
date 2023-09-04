@@ -71,8 +71,8 @@ import {
             <MenubarSub>
               <MenubarSubTrigger>General Reports</MenubarSubTrigger>
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y border-0">
-              {GenReports.map(item=>(
-                  <Link href={item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":`/components/${item}`} className="hover:no-underline">
+              {GenReports.map((item,key)=>(
+                  <Link key ={key} href={item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":`/components/${item}`} className="hover:no-underline">
                    <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
                      {item}
                     </MenubarItem>
@@ -85,8 +85,8 @@ import {
             <MenubarSub>
               <MenubarSubTrigger>Vehicle Reports</MenubarSubTrigger>
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 border-0">
-                {VehReports.map(item=>(
-                  <Link href={`/components/${item}`} className="hover:no-underline">
+                {VehReports.map((item,key)=>(
+                  <Link key ={key} href={`/components/${item}`} className="hover:no-underline">
                    <MenubarItem className ="text-yellow-400  hover:text-yellow-400 hover:font-semibold transition-all" >
                      {item}
                     </MenubarItem>
@@ -99,8 +99,8 @@ import {
             <MenubarSub>
               <MenubarSubTrigger>Driver Reports</MenubarSubTrigger>
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y  border-0">
-              {DriversReport.map(item=>(
-                  <Link href={item=='License Expiry Report'?"/components/driverReports/licenseExpiry":`/components/${item}`} className="hover:no-underline">
+              {DriversReport.map((item,key)=>(
+                  <Link key = {key} href={item=='License Expiry Report'?"/components/driverReports/licenseExpiry":`/components/${item}`} className="hover:no-underline">
                    <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
                      {item}
                     </MenubarItem>
@@ -120,7 +120,7 @@ import {
         </Link>
         </MenubarMenu> */}
         <MenubarMenu >
-        <Link href="/login" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <Link href="/" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >Log out</MenubarTrigger>
         </Link>
         </MenubarMenu>
