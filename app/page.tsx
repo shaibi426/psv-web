@@ -14,6 +14,8 @@ export default function Home() {
   const [pwd,setPwd] =useState('')
   const [emptyUser,setEmptyUser] =useState('hidden')
   const [emptyPwd,setEmptyPwd] =useState('hidden')
+  
+  process.env.USER_NAME = user
 
 const router = useRouter()
 

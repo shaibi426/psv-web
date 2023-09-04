@@ -1,4 +1,4 @@
-'use client'
+
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
  
   const pathname = usePathname()
-  const router  =useRouter()
+
 
   const showHeader = pathname === '/' ? false : true;
   return (
