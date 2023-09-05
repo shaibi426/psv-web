@@ -39,7 +39,7 @@ export default  function PSVsTravelled(props:any) {
     
   };
   getData()
- },[])
+ },[startDate,endDate,startTime,endTime,psvNo])
  
 
   //------------------------------------------------------excel headers
