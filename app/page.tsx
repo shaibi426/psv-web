@@ -10,12 +10,12 @@ import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [data, setData] = useState([])
-  const [user,setUser] =useState('')
-  const [pwd,setPwd] =useState('')
+  const [user,setUser] =useState("")
+  const [pwd,setPwd] =useState("")
   const [emptyUser,setEmptyUser] =useState('hidden')
   const [emptyPwd,setEmptyPwd] =useState('hidden')
   
-  process.env.USER_NAME = user
+
 
 const router = useRouter()
 
@@ -25,11 +25,11 @@ const router = useRouter()
       setEmptyUser('block')
       setEmptyPwd('hidden')
     }
-    else if ( user !== '' && pwd == ''){
+    else if ( user !== '' && pwd == ""){
       setEmptyUser('hidden')
       setEmptyPwd('block')
     }
-    else  if (user !== '' && pwd !== ''){
+    else  if (user !== '' && pwd !== ""){
       setEmptyUser('hidden')
       setEmptyPwd('hidden')
    if(data[0]['UserPassword'], btoa(pwd)){
@@ -114,13 +114,3 @@ const router = useRouter()
   
 }
 
-// import Dashboard from './components/dashboard'
-
-// export default function Home() {
-//   return(
-  
-//     <div className="flex flex-col w-full min-h-screen ">
-//     <Dashboard />
-//  </div>
-//   )
-// }
