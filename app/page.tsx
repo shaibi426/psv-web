@@ -43,7 +43,7 @@ const router = useRouter()
   useEffect(() => {
     const getUser = async () => {
       const response = await fetch(
-        `/api/login/${user}`,
+        `http://localhost:5000/users/${user}`,
         {
           method: "GET",
           headers: {
