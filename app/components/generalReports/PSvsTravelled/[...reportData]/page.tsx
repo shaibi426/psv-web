@@ -39,7 +39,7 @@ export default  function PSVsTravelled(props:any) {
     
   };
   getData()
- })
+ },[])
  
 
   //------------------------------------------------------excel headers

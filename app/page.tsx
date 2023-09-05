@@ -97,7 +97,7 @@ const router = useRouter()
          <p className ={`text-xs text-red-600 ${emptyPwd} `}>Please Enter Password</p>
         <div className='flex w-full justify-end pt-10'>
         <button
-        onClick={login}
+        onClick={()=>login()}
         className='bg-blue-500 p-2 w-3/5 rounded-md text-white font-semibold'>Sign in</button>
         </div>
         
