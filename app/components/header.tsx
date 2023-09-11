@@ -31,15 +31,6 @@ export default function Header() {
     <div className=" px-10  text-sm">
 <MainMenu />
 </div>
-    {/* <div className=" px-10  text-sm">
-      <ul className="flex flex-row gap-3">
-      <li className="header-links"><DropDown /></li>
-        <li className="header-links"><Link href="/">Home</Link></li>
-        <li className="header-links"><Link href="/dashboard">Dash Board</Link></li>
-  
-       
-      </ul>
-    </div> */}
     </div>
   );
 }

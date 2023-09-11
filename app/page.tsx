@@ -9,6 +9,7 @@ import { User2,KeyRound } from 'lucide-react'
 
 
 
+
 export default function Home() {
   const [data, setData] = useState([])
   const [user,setUser] =useState("")
@@ -33,7 +34,7 @@ const router = useRouter()
     else  if (user !== '' && pwd !== ""){
       setEmptyUser('hidden')
       setEmptyPwd('hidden')
-   if(data[0]['UserPassword'], btoa(pwd)){
+   if(data[0]['UserPassword'] == btoa(pwd)){
     router.push('/dashboard')
    }
       
@@ -67,7 +68,7 @@ const router = useRouter()
       <div className=' w-full flex flex-row  gap-2 items-center justify-stretch pl-10 pt-5'>
       <Image src={logo}  alt="logo" width={80} height ={80} className='sm:w-30 sm:h-30 w-16 h-16'
        />
-       <h1 className=' font-extrabold sm:text-3xl text-white font-prompt '> <span className='hidden sm:block'>PSVs Management Information System</span> (PSV-MIS)</h1>
+       <h1 className=' font-extrabold sm:text-3xl text-white font-prompt '> PSVs Management Information System (PSV-MIS)</h1>
         </div>
     <div className=" h-screen flex justify-between items-center ">
       <div className =' items-start pt-10 h-full w-2/4 justify-center hidden sm:block'>
@@ -82,9 +83,9 @@ const router = useRouter()
           </div>
          <p className ={`text-xs text-red-600 ${emptyUser}`}>Please Enter User ID</p>
          <div className='flex-row flex items-center  bg-white'> 
-         <User2 stroke='white' className=' absolute  bg-blue-500 w-[32px] h-[40px] p-2' />
+         <User2 stroke='#051532' className=' absolute  w-[32px] h-[40px] p-2' />
         <input 
-        className='rounded-sm p-2 text w-full pl-10'
+        className=' p-2 text w-full pl-10 '
         placeholder='User'
         type ='text'
         value ={user}
@@ -92,7 +93,7 @@ const router = useRouter()
          />
          </div>
          <div className='flex-row flex items-center  bg-white'> 
-         <KeyRound stroke='white' className='absolute  bg-blue-500 w-[32px] h-[40px] p-2' />
+         <KeyRound stroke='#051532' className='absolute  w-[32px] h-[40px] p-2' />
         <input 
         className='rounded-sm p-2 text w-full pl-10' 
         placeholder='Passward' 

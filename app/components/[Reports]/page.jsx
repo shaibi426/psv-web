@@ -10,8 +10,8 @@ const containerStyles = {
 const MainReport = (props) => {
   const [startDate, setStartDate] = useState(Date());
   const [endDate, setEndDate] = useState(Date());
-  const [startTime, setStartTime] = useState("06:00");
-  const [endTime, setEndTime] = useState("14:00");
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("23:59");
   const [reportName, setReportName] = useState();
   const [isTimeDiv, setTimeDiv] = useState("hidden");
   const [isPsvDiv, setPsvDiv] = useState("hidden");

@@ -40,7 +40,7 @@ export default function SideBarMenu() {
           <Image src={driver} width={50} height={50} alt="logo"  />
           </div>
           <div className="mt-2 flex flex-col justify-center items-center">
-            <span className=' font-semibold m-1'>Total Drivers</span>
+            <span className=' font-semibold m-1'>Registered Drivers</span>
             <span className='bg-pmpyellow w-5/6 text-center text-pmpblue'>{totalDrivers}</span>
             </div>
           </div>
@@ -58,7 +58,7 @@ export default function SideBarMenu() {
           <Image src={company} width={50} height={50} alt="logo"  />
           </div>
           <div className="mt-2 flex flex-col justify-center items-center">
-            <span className=' font-semibold m-1'>Total Companies</span>
+            <span className=' font-semibold m-1'>PSV Companies</span>
             <span className='bg-pmpyellow w-5/6 text-center text-pmpblue'>{totalCompanies}</span>
             </div>
           </div>

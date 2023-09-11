@@ -57,7 +57,7 @@ export const columns: ColumnDef<rptCol>[] = [
   },
   {
     accessorKey: "TypeExpiryDate",
-    header: "Tyre",
+    header: "Tyre Expiry",
     cell: ({ row }) => {
       const tyre:string = (row.getValue("TypeExpiryDate"))
       return <div className="text-right font-medium">

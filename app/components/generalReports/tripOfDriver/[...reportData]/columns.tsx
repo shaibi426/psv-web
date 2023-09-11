@@ -50,11 +50,11 @@ export const columns: ColumnDef<rptCol>[] = [
   },
   {
     accessorKey: "DriverName",
-    header: "Reg. No",
+    header: "Driver Name",
   },
   {
     accessorKey: "RegNo",
-    header: "Driver Name",
+    header:"Reg. No" ,
   },
   {
     accessorKey: "LicenseExpiry", //
