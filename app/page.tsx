@@ -111,7 +111,8 @@ const router = useRouter()
         
         <div className='mt-20 text-center'>
           <p className ='text-center text-white font-extralight text-xs w-full italic '>Copyrights&copy;   reserved by</p>
-        <p className ='text-center text-white font-extralight text-xs w-full '>  <span className='font-bold '> NHMP Training College</span>  <span className='italic'> IT Wing.</span></p>
+        <p className ='text-center text-white font-extralight text-xs w-full '>  <span className='font-bold '> NHMP Training College</span>  <span className='italic font-bold'> IT Wing.</span></p>
+        <p className='text-gray-200 text-xs'>Hosted by NHMP Data Center Islamabad</p>
         </div>
         </div>
        </div>
