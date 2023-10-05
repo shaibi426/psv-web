@@ -6,7 +6,10 @@ import logo from './components/assests/PMP LOGO.png'
 import React ,{ useEffect,useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { User2,KeyRound } from 'lucide-react'
+import axios from 'axios'
 
+//===================import functions
+import {userLogin} from '../appconfig/functions'
 
 
 
@@ -22,7 +25,7 @@ export default function Home() {
 const router = useRouter()
 
   const login = async () => { 
-       
+      
     if (user == ''){
       setEmptyUser('block')
       setEmptyPwd('hidden')
@@ -34,34 +37,22 @@ const router = useRouter()
     else  if (user !== '' && pwd !== ""){
       setEmptyUser('hidden')
       setEmptyPwd('hidden')
-   if(data[0]['UserPassword'] == btoa(pwd)){
-    router.push('/dashboard')
-   }
       
+      axios.get(`http://cpo.nhmp.gov.pk:7077/users/getUser/${user}`).then(
+        response =>{
+          const result = response.data[0]
+          if(result){
+            result.userPwd == pwd?router.push('/dashboard'): alert("Wrong password")
+          }
+          else{
+            alert("Please Enter Correct User")
+          }
+        }
+      )
     }
- 
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      const response = await fetch(
-        `/api/login/${user}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-           
-          },
-        }
-      );
-      const result = await response.json();
-      setData(result);
-      
-    };
-    getUser();
-  
-   
-  },[data,user]);
+
 
   return (
     <div className="bg-[#051532]">

@@ -5,6 +5,7 @@ import MainBck from '../../public/2.jpg'
 import logo from '../components/assests/PMP LOGO.png'
 import React ,{ useEffect,useState } from 'react'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 
 
 
@@ -17,47 +18,106 @@ export default function Login() {
 
 const router = useRouter()
 
-  const login = async () => { 
+  // const login = async () => { 
        
-    if (user == ''){
-      setEmptyUser('block')
-      setEmptyPwd('hidden')
-    }
-    else if ( user !== '' && pwd == ''){
-      setEmptyUser('hidden')
-      setEmptyPwd('block')
-    }
-    else  if (user !== '' && pwd !== ''){
-      setEmptyUser('hidden')
-      setEmptyPwd('hidden')
-   if(data[0]['UserPassword'], btoa(pwd)){
-    router.push('/')
-   }
+  //   if (user == ''){
+  //     setEmptyUser('block')
+  //     setEmptyPwd('hidden')
+  //   }
+  //   else if ( user !== '' && pwd == ''){
+  //     setEmptyUser('hidden')
+  //     setEmptyPwd('block')
+  //   }
+  //   else  if (user !== '' && pwd !== ''){
+  //     setEmptyUser('hidden')
+  //     setEmptyPwd('hidden')
+  //  if(data[0]['UserPassword'], btoa(pwd)){
+  //   router.push('/')
+  //  }
       
-    }
+  //   }
  
-  };
+  // };
 
   useEffect(() => {
-    const getUser = async () => {
-      const response = await fetch(
-        `/api/login/${user}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+
+    console.log(`12312131`)
+    // const getUser = async () => {
+    //   const response = await fetch(
+    //     `/api/login/${user}`,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-Type": "application/json",
            
-          },
-        }
-      );
-      const result = await response.json();
-      setData(result);
+    //       },
+    //     }
+    //   );
+    //   const result = await response.json();
+    //   setData(result);
       
-    };
-    getUser();
+    // };
+
+
+    // const getUser = async ()=>{
+    //   axios.get(`${process.BASE_URL}/users/getUser/${user}`).then(
+    //     response =>{
+    //       const result = response.data[0]
+    //       if (result){
+    //         console.log(result)
+    //       }
+    //     }
+    //   )
+    // }
+
+//     const signIn =async()=>{       
+
+//       if(user== "") {
+//           Alert.alert("Please enter User Name") }
+//          else if(userpwd== "") {
+//               Alert.alert("Please enter Password") }
+//             else  if(location== "") {Alert.alert("Please enter current location") }
+//            else   if(userbound== "") {Alert.alert("Please Select North or South Bound")}
+//   else {
+      
+//   if(user && userpwd && location && userbound){
+//    await axios.get(`${process.BASE_URL}/users/getUser/${user}`
+//      // console.log(`${global.BASE_URL}/users/getUser/${user}`)
+     
+//     ).then(
+//       function (response){
+//           const result = response.data[0]
+//     if(result) {
+     
+//     if(userpwd == result.userPwd){
+     
+//       storeUserSession(user,result.role,result.userName,result.rank,result.userPwd)
+      
+//       navigation.navigate("Home")
+//       clearAll()
+//     }
+//     else {
+//       Alert.alert("Wrong Password")
+//     }
+//   }
+//   else{
+//      Alert.alert("User Not Registered")
+// }
+
+// }
+      
+//     ).catch(
+//       function(error){
+//           console.log(error)
+//       }
+//     )
+//   }}
+
+// }
+    // getUser();
   
    
-  },[data,user]);
+  },[ ]);
 
   return (
     <div className="bg-[#051532]">

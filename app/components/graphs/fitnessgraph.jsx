@@ -1,7 +1,7 @@
 "use client"
 import React, { PureComponent ,useState,useEffect} from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
-
+import axios from 'axios';
 
 
 const COLORS = [  '#00C49F','#AF7AC5','#FFBE28', '#FF8042','#0088FE'];
@@ -28,18 +28,17 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     ];
   
     const getExpiredLicience = async () => {
-      const response = await fetch('api/checkFitness', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const validity = await response.json()
-     setvalid(validity[0]['total'])
-     setExpired(validity[1]['total'])
+
+      // axios.get('http://cpo.nhmp.gov.pk:7077/web/graph/fitnessExpiry').then(
+        axios.get('http://116.0.45.14:5000/web/graph/fitnessExpiry').then(
+        response =>{
+          const result = response.data
+          console.log(result)
+           setvalid(result[0]['total'])
+            setExpired(result[1]['total'])
   
-      
-      
+        }
+      )
     } 
   
     useEffect(()=>{
