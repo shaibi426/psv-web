@@ -1,4 +1,5 @@
 "use client"
+require('dotenv').config()
 import React, { PureComponent ,useState,useEffect} from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Legend } from 'recharts';
 import axios from 'axios';
@@ -14,10 +15,12 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
       {`${(percent * 100).toFixed(0)}%`}
     </text>
+    
   );
 };
-  export default function FitnessGrph(){
 
+  export default function FitnessGrph(){
+    console.log(process.env.BASE_URL)
     const [expired,setExpired]=useState(3)
     const [valid,setvalid]=useState(10)
   
@@ -33,17 +36,18 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
         axios.get('http://116.0.45.14:5000/web/graph/fitnessExpiry').then(
         response =>{
           const result = response.data
-          console.log(result)
+       
            setvalid(result[0]['total'])
             setExpired(result[1]['total'])
   
         }
       )
     } 
-  
-    useEffect(()=>{
-      getExpiredLicience()
-    })
+useEffect(()=>{
+
+  getExpiredLicience()
+
+},[])
   
     return(
       <div className="graph-div">
@@ -51,7 +55,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
               <div className=" graph-body"> 
               <ResponsiveContainer width="100%" height="100%">
         <PieChart width={400} height={400}>
-        <Legend verticalAlign="top" height={36}/>
+        <Legend verticalAlign="top" height={30} />
           <Pie
             data={data}
             cx="50%"
@@ -68,10 +72,11 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
             ))}
           </Pie>
         </PieChart>
+       
       </ResponsiveContainer>
               </div>
               <div className="graph-footer ">
-                Total Fitness
+                Fitness Certificates
                 <span className='footer-value'>
                  {valid+expired}
                  </span>
