@@ -20,7 +20,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
   export default function FitnessGrph(){
-    console.log(process.env.BASE_URL)
+  
     const [expired,setExpired]=useState(3)
     const [valid,setvalid]=useState(10)
   

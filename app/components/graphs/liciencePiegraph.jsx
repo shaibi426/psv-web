@@ -1,12 +1,13 @@
 "use client"
 import { useEffect, useState } from 'react';
 import { PieChart, Pie, Sector, Cell,Legend,LabelList, ResponsiveContainer } from 'recharts';
+import axios from 'axios';
 
 const COLORS = ['#0088FE','#EB9002',];
 
 export default function LicienceGraph(){
-  const [expired,setExpired]=useState(800)
-  const [valid,setvalid]=useState(500)
+  const [expired,setExpired]=useState(0)
+  const [valid,setvalid]=useState(0)
 
   const data = [
     { name: 'Valid', value: valid },
@@ -15,23 +16,20 @@ export default function LicienceGraph(){
   ];
 
   const getExpiredLicience = async () => {
-    const response = await fetch('api/checkLicience', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const validity = await response.json()
-   setvalid(validity[0]['total'])
-   setExpired(validity[1]['total'])
+    axios
+      .get("http://localhost:5000/web/graph/licenceExpiry")
+      .then((response) => {
 
-    
-    
-  } 
+        const result = response.data;
+        console.log(result)
+        setvalid(result[0]["total"]);
+        setExpired(result[1]["total"]);
+      });
+  }; 
 
   useEffect(()=>{
     getExpiredLicience()
-  })
+  },[])
 
 return(
   <div className="graph-div">

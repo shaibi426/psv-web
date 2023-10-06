@@ -5,6 +5,7 @@ import logo from './assests/PMP LOGO.png'
 import driver from './assests/driver.png'
 import company from './assests/company.png'
 import psv from './assests/bus.png'
+import axios from "axios";
 
 export default function SideBarMenu() {
     const [totalDrivers,setDrivers] =useState()
@@ -12,26 +13,22 @@ export default function SideBarMenu() {
     const [totalCompanies,setCompanies] =useState()
 
     //---------------------------------------------------------get total records
-    const getTotalRecord = async (field,table,setData) => {
-        const response = await fetch(`api/${field}/${table}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        const result = await response.json()
-        setData(result[0][""])
+    const getTotalRecord = async () => {
+       axios.get('http://localhost:5000/web/totalRecords').then(
+        response=>{
+          const result = response.data
+          setCompanies(result[0]['companies'])
+          setDrivers(result[0]['drivers'])
+          setVehicles(result[0]['psvs'])
+        }
+       )
     }
  
 
     useEffect(()=>{
-     
-    
-        getTotalRecord('SrNo','DriverInfo',setDrivers)
-        getTotalRecord('SrNo','VehicleInfo',setVehicles)
-        getTotalRecord('id','COMMON_COMPANY',setCompanies)
-                
+        getTotalRecord()        
     },[totalCompanies,totalDrivers,totalVehicles])
+
     return(
       <div className="bg-pmpblue3 bg-gradient-radial to-pmpblue3 from-blue-900 w-2/12  flex flex-col justify-start items-center">
          

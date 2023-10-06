@@ -10,17 +10,17 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-
+import axios from "axios";
 export default function TrackinLineGraph() {
   const [data, setData] = useState();
 
   const getExpiredLicience = async () => {
-    const response = await fetch("api/pointtracking", {
-      method: "GET",
-     
-    });
-    const result = await response.json();
-    setData(result);
+    axios.get('http://localhost:5000/web/graph/pointwiseReport').then(
+      response=>{
+        const result = response.data
+        setData(result);
+      }
+      )
     
   };
 

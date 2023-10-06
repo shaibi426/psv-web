@@ -1,6 +1,7 @@
 "use client"
 import React,{useState,useEffect} from "react"
 import {  BarChart, Bar, Cell, XAxis, YAxis, ResponsiveContainer,CartesianGrid,Tooltip,Legend, Label} from "recharts"
+import axios from "axios"
 
 export default function RoutGraph() {
   const [expired,setExpired]=useState(200)
@@ -13,15 +14,14 @@ export default function RoutGraph() {
   ];
 
   const getExpiredLicience = async () => {
-    const response = await fetch('api/checkRoute', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const validity = await response.json()
-    setExpired(validity[0]['total'])
-    setvalid(validity[1]['total']) 
+   axios.get("http://localhost:5000/web/graph/routeExpiry").then(
+    response=>{
+        const validity = response.data
+      setExpired(validity[0]['total'])
+      setvalid(validity[1]['total']) 
+    }
+   )
+   
   } 
 
   useEffect(()=>{
