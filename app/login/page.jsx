@@ -18,57 +18,57 @@ export default function Login() {
 
 const router = useRouter()
 
-  // const login = async () => { 
+  const login = async () => { 
        
-  //   if (user == ''){
-  //     setEmptyUser('block')
-  //     setEmptyPwd('hidden')
-  //   }
-  //   else if ( user !== '' && pwd == ''){
-  //     setEmptyUser('hidden')
-  //     setEmptyPwd('block')
-  //   }
-  //   else  if (user !== '' && pwd !== ''){
-  //     setEmptyUser('hidden')
-  //     setEmptyPwd('hidden')
-  //  if(data[0]['UserPassword'], btoa(pwd)){
-  //   router.push('/')
-  //  }
+    if (user == ''){
+      setEmptyUser('block')
+      setEmptyPwd('hidden')
+    }
+    else if ( user !== '' && pwd == ''){
+      setEmptyUser('hidden')
+      setEmptyPwd('block')
+    }
+    else  if (user !== '' && pwd !== ''){
+      setEmptyUser('hidden')
+      setEmptyPwd('hidden')
+   if(data[0]['UserPassword'], btoa(pwd)){
+    router.push('/')
+   }
       
-  //   }
+    }
  
-  // };
+  };
 
   useEffect(() => {
 
-    console.log(`12312131`)
-    // const getUser = async () => {
-    //   const response = await fetch(
-    //     `/api/login/${user}`,
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         "Content-Type": "application/json",
+
+    const getUser = async () => {
+      const response = await fetch(
+        `/api/login/${user}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
            
-    //       },
-    //     }
-    //   );
-    //   const result = await response.json();
-    //   setData(result);
+          },
+        }
+      );
+      const result = await response.json();
+      setData(result);
       
-    // };
+    };
 
 
-    // const getUser = async ()=>{
-    //   axios.get(`${process.BASE_URL}/users/getUser/${user}`).then(
-    //     response =>{
-    //       const result = response.data[0]
-    //       if (result){
-    //         console.log(result)
-    //       }
-    //     }
-    //   )
-    // }
+//     const getUser = async ()=>{
+//       axios.get(`${process.BASE_URL}/users/getUser/${user}`).then(
+//         response =>{
+//           const result = response.data[0]
+//           if (result){
+//             console.log(result)
+//           }
+//         }
+//       )
+//     }
 
 //     const signIn =async()=>{       
 
@@ -114,10 +114,10 @@ const router = useRouter()
 //   }}
 
 // }
-    // getUser();
+    getUser();
   
    
-  },[ ]);
+  },[user ]);
 
   return (
     <div className="bg-[#051532]">

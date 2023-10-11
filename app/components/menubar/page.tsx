@@ -52,6 +52,18 @@ import {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <Menubar className="border-0">
+        {/* ===================================highwas and motorways detail  */}
+        <MenubarMenu >
+        <Link href="/dashboard" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <MenubarTrigger >Motorways</MenubarTrigger>
+        </Link>
+        </MenubarMenu>
+        <MenubarMenu >
+        <Link href="/dashboard" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <MenubarTrigger >Highway</MenubarTrigger>
+        </Link>
+        </MenubarMenu>
+        {/* ================================================================ */}
        
         <MenubarMenu >
           <MenubarTrigger onClick={() => setIsOpen(!isOpen)} className="hover:bg-white hover:text-pmpblue rounded-md">
@@ -112,7 +124,7 @@ import {
            
           </MenubarContent>
         </MenubarMenu>
-
+       
         {/* <MenubarMenu >
         <Link href="/components/dsr" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >DSR</MenubarTrigger>

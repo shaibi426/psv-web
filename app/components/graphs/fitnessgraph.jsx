@@ -33,7 +33,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     const getExpiredLicience = async () => {
 
       // axios.get('http://cpo.nhmp.gov.pk:7077/web/graph/fitnessExpiry').then(
-        axios.get('http://116.0.45.14:5000/web/graph/fitnessExpiry').then(
+        axios.get('http://cpo.nhmp.gov.pk:7077/web/graph/fitnessExpiry').then(
         response =>{
           const result = response.data
        

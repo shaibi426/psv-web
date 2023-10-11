@@ -14,7 +14,7 @@ export default function RoutGraph() {
   ];
 
   const getExpiredLicience = async () => {
-   axios.get("http://localhost:5000/web/graph/routeExpiry").then(
+   axios.get("http://cpo.nhmp.gov.pk:7077/web/graph/routeExpiry").then(
     response=>{
         const validity = response.data
       setExpired(validity[0]['total'])

@@ -15,7 +15,7 @@ export default function TrackinLineGraph() {
   const [data, setData] = useState();
 
   const getExpiredLicience = async () => {
-    axios.get('http://localhost:5000/web/graph/pointwiseReport').then(
+    axios.get('http://cpo.nhmp.gov.pk:7077/web/graph/pointwiseReport').then(
       response=>{
         const result = response.data
         setData(result);

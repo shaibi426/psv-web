@@ -17,7 +17,7 @@ export default function LicienceGraph(){
 
   const getExpiredLicience = async () => {
     axios
-      .get("http://localhost:5000/web/graph/licenceExpiry")
+      .get("http://cpo.nhmp.gov.pk:7077/web/graph/licenceExpiry")
       .then((response) => {
 
         const result = response.data;

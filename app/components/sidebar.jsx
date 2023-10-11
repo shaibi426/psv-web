@@ -14,7 +14,7 @@ export default function SideBarMenu() {
 
     //---------------------------------------------------------get total records
     const getTotalRecord = async () => {
-       axios.get('http://localhost:5000/web/totalRecords').then(
+       axios.get('http://cpo.nhmp.gov.pk:7077/web/totalRecords').then(
         response=>{
           const result = response.data
           setCompanies(result[0]['companies'])
@@ -31,7 +31,22 @@ export default function SideBarMenu() {
 
     return(
       <div className="bg-pmpblue3 bg-gradient-radial to-pmpblue3 from-blue-900 w-2/12  flex flex-col justify-start items-center">
-         
+
+        {/* =================================sub devision for motorways and highways */}
+          {/* <div className="border-b-yellow-300 border-b text-pmpyellow h-1/6 w-11/12 m-1 flex flex-col justify-center items-center">
+          
+          <div className="mt-2 flex flex-col justify-center items-center">
+            <span className=' font-semibold m-1'>Detail of Motorways </span>
+            <span className='bg-pmpyellow w-5/6 text-center text-pmpblue'></span>
+            </div>
+            <div className="mt-2 flex flex-col justify-center items-center">
+            <span className=' font-semibold m-1'>Detail of Highways</span>
+            <span className='bg-pmpyellow w-5/6 text-center text-pmpblue'></span>
+            </div>
+          </div> */}
+ 
+
+
           <div className="menu-subdiv">
           <div className="bg-pmpyellow   rounded-full h-50 w-50 p-2">
           <Image src={driver} width={50} height={50} alt="logo"  />
