@@ -59,8 +59,8 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-    <div className="flex flex-row justify-between px-3 items-center border rounded-md"> 
-      <div className="w/3/4">
+    <div className="flex flex-row justify-between px-3 items-center border rounded-md mb-1"> 
+      <div className="w/3/4 ">
       
        <DropdownMenu >
           <DropdownMenuTrigger asChild>
@@ -92,7 +92,7 @@ export function DataTable<TData, TValue>({
         </DropdownMenu>
         </div>
        
-       <div className="flex items-center justify-end space-x-2 py-4">
+       <div className="flex items-center justify-end space-x-2 py-4 ">
        <Button
        variant="outline"
        size="sm"

@@ -9,9 +9,9 @@ import {
     TableRow,
   } from "@/components/ui/table"
 
-import img from '../../../../public/motorway.jpg'
+
   
-  const invoices = [
+  const data = [
     {
       invoice: "INV001",
       paymentStatus: "Paid",
@@ -57,36 +57,29 @@ import img from '../../../../public/motorway.jpg'
   ]
   
   export default function Motorways() {
-    return (
-        <div className=' bg-cover h-screen-14 bg-opacity-40 flex flex-col justify-center items-center mt-10 '>
-        <div className='flex justify-center text-4xl font-prompt font-extrabold bg-green-700 text-white border border-white p-3 w-5/6 rounded-md'>
-        MOTORWAYS
-    </div>
-        <div className =' m-5 w-5/6 flex justify-center rounded-lg border-2 border-green-900 bg-gradient-radial bg-white bg-opacity-70 text-black  p-2'>
-           
-           
+    return (      
       <Table>
-        <TableCaption>A list of your recent invoices.</TableCaption>
+      
         <TableHeader>
           <TableRow className="bg-gray-200 font-extrabold font-prompt text-md">
-            <TableHead className="w-[100px]">Invoice</TableHead>
+            <TableHead >Invoice</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead >Amount</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.invoice}>
-              <TableCell className="font-medium">{invoice.invoice}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+          {data.map((item) => (
+            <TableRow key={item.invoice}>
+              <TableCell className="font-medium">{item.invoice}</TableCell>
+              <TableCell>{item.paymentStatus}</TableCell>
+              <TableCell>{item.paymentMethod}</TableCell>
+              <TableCell className="text-right">{item.totalAmount}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      </div>
-      </div>
+    
+      
     )
   }

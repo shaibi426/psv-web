@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\app"
+    "\\app",
+    "\\app\\components",
+    "\\app\\components\\dsr"
   ],
-  "SelectedNode": "\\app\\globals.css",
   "PreviewInSolutionExplorer": false
 }

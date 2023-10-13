@@ -56,6 +56,7 @@ const router = useRouter()
 
   return (
     <div className="bg-[#051532]">
+  
       <div className=' w-full flex flex-row  gap-2 items-center justify-stretch pl-10 pt-5'>
       <Image src={logo}  alt="logo" width={80} height ={80} className='sm:w-30 sm:h-30 w-16 h-16'
        />
