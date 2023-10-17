@@ -54,12 +54,12 @@ import {
       <Menubar className="border-0">
         {/* ===================================highwas and motorways detail  */}
         <MenubarMenu >
-        <Link href="/dashboard" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <Link href="/components/roads/motorways" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >Motorways</MenubarTrigger>
         </Link>
         </MenubarMenu>
         <MenubarMenu >
-        <Link href="/dashboard" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
+        <Link href="/components/roads/highways" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >Highway</MenubarTrigger>
         </Link>
         </MenubarMenu>
