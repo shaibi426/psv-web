@@ -7,9 +7,13 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
-  VisibilityState
+  VisibilityState,
+  ColumnFiltersState,
+  getFilteredRowModel,
+
 } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 import {
   DropdownMenu,
@@ -22,6 +26,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -35,22 +40,29 @@ interface DataTableProps<TData, TValue> {
 
 
 
-export function DataTable<TData, TValue>({
+
+
+export function DataTablewithFilters<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
 
   const [columnVisibility, setColumnVisibility] =
   useState<VisibilityState>({})
-
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    []
+  )
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
      state: {
       columnVisibility,
+      columnFilters,
     },
     
   })
@@ -60,11 +72,11 @@ export function DataTable<TData, TValue>({
   return (
     <div>
     <div className="flex flex-row justify-between px-3 items-center border rounded-md mb-1"> 
-      <div className="w/3/4 ">
+      <div className="flex flex-row gap-2">
       
        <DropdownMenu >
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
+            <Button variant="outline" >
               Columns
             </Button>
           </DropdownMenuTrigger>
@@ -90,7 +102,25 @@ export function DataTable<TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
+        <Input
+          placeholder="Filter zones..."
+          value={(table.getColumn("zone")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("zone")?.setFilterValue(event.target.value)
+          }
+          className="w-2/6 placeholder-green-600"
+        />
+        <Input
+          placeholder="Filter sectors..."
+          value={(table.getColumn("sector")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("sector")?.setFilterValue(event.target.value)
+          }
+          className="w-2/6 placeholder-blue-600"
+        />
         </div>
+      
+     
        
        <div className="flex items-center justify-end space-x-2 py-2 ">
        <Button
@@ -136,10 +166,10 @@ export function DataTable<TData, TValue>({
    </div>
    </div>
   
-    <div className="rounded-md border">
+    <div className="rounded-md border ">
       
       <Table>
-        <TableHeader className="bg-slate-300">
+        <TableHeader className="bg-slate-200  ">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -157,6 +187,9 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
+
+
+
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
@@ -165,7 +198,7 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

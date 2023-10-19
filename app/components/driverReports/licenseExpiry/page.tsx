@@ -7,7 +7,7 @@ import ReportTemp from '../../../ui/reportTemp'
 import { DataTable } from "@/app/ui/table";
 
  
-import { rptCol, columns } from "./columns"
+import {columns } from "./columns"
   //-----------getting data on page load
  
 export default function LicenseExpiry(props:any) {
