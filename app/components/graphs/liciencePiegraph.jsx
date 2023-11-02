@@ -5,19 +5,30 @@ import axios from 'axios';
 
 const COLORS = ['#0088FE','#EB9002',];
 
+const custumizedLegend =(x,y)=>{
+  return(
+    <div className='flex flex-row  justify-center p-1 '>
+      <div className='px-1  bg-[#0088FE] text-white rouded-sm text-xs  font-semibold'> Valid:{x}</div>
+      <div className='px-1  bg-[#EB9002] text-white rouded-sm text-xs  font-semibold'>Expired:{y}</div>
+    </div>
+  )
+}
+
 export default function LicienceGraph(){
-  const [expired,setExpired]=useState(0)
-  const [valid,setvalid]=useState(0)
+  const [valid,setvalid]=useState(100)
+  const [expired,setExpired]=useState(200)
 
   const data = [
-    { name: 'Valid', value: valid },
-    { name: 'Expired', value: expired },
+    { name: 'Valid', value: valid,  percentage: `${(valid * 100/(valid+expired)).toFixed(0)}%` },
+    { name: 'Expired', value: expired,    percentage:`${(expired * 100/(valid+expired)).toFixed(0)}%`}
   
   ];
 
+  
+
   const getExpiredLicience = async () => {
     axios
-      .get("http://cpo.nhmp.gov.pk:7077/web/graph/licenceExpiry")
+      .get("http://203.99.61.134:7077/web/graph/licenceExpiry")
       .then((response) => {
 
         const result = response.data;
@@ -38,7 +49,7 @@ return(
               <ResponsiveContainer>
 
 <PieChart width={400} height={400} >
-<Legend verticalAlign="top" height={36}/>
+<Legend verticalAlign="top" height={36} content={custumizedLegend(valid,expired)}/>
 <Pie
   data={data}
   
@@ -48,7 +59,7 @@ return(
   paddingAngle={5}
   dataKey="value"
   >
-    <LabelList dataKey="value" position="insideStart" fill='white' />
+    <LabelList dataKey="percentage" position="insideStart" fill='white'  />
   {data.map((entry, index) => (
       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
       ))}

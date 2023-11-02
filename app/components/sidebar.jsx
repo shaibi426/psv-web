@@ -14,7 +14,7 @@ export default function SideBarMenu() {
 
     //---------------------------------------------------------get total records
     const getTotalRecord = async () => {
-       axios.get('http://cpo.nhmp.gov.pk:7077/web/totalRecords').then(
+       axios.get('http://203.99.61.134:7077/web/totalRecords').then(
         response=>{
           const result = response.data
           setCompanies(result[0]['companies'])

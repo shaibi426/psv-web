@@ -3,7 +3,7 @@ import React, { useState, useEffect,useMemo } from "react";
 import { DataTable } from "@/app/ui/table";
 
 import ReportTemp from "../../../../ui/reportTemp";
-import { rptCol, columns } from "./columns"
+import { rptCol, columns } from "../columns"
 
 const Today = new Date(Date()).toLocaleDateString()
 

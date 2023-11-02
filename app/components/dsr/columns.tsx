@@ -56,11 +56,11 @@ export const columns: ColumnDef<rptCol>[] = [
   },
   {
     accessorKey: "added",
-    header: "New Records",
+    header: "Additions",
   },
   {
     accessorKey: "updated",
-    header: "Updated Records",
+    header: "Updations",
     // footer: ({ table })=>{
     //   table.getFilteredRowModel()
     //   .rows.reduce((total,row)=>total+Number(row.getValue("updated")),0)
@@ -126,7 +126,7 @@ export const Inspcolumns: ColumnDef<InsprptCol>[] = [
 },
 {
   accessorKey: "added",
-  header: "New Records",
+  header: "Total Inspections",
 },
 {
   accessorKey: "passengers",

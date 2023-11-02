@@ -84,7 +84,21 @@ import {
               <MenubarSubTrigger>General Reports</MenubarSubTrigger>
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y border-0">
               {GenReports.map((item,key)=>(
-                  <Link key ={key} href={item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":`/components/${item}`} className="hover:no-underline">
+                  <Link
+                   key ={key}
+                    href={
+                    // item=='Road Worthy Vehicles'?"/components/generalReports/roadWorthyVehicles":
+                    item =="PSVs Travelled"?"/components/generalReports/PSvsTravelled":
+                    item =="Trip of a Driver"?"/components/generalReports/tripOfDriver":
+                    ""
+                    
+                    
+                    
+                    // `/components/${item}`    to go on date and time page
+                  
+                  
+                  } 
+                    className="hover:no-underline">
                    <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
                      {item}
                     </MenubarItem>
@@ -99,7 +113,7 @@ import {
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 border-0">
                 {VehReports.map((item,key)=>(
                   <Link key ={key} href={`/components/${item}`} className="hover:no-underline">
-                   <MenubarItem className ="text-yellow-400  hover:text-yellow-400 hover:font-semibold transition-all" >
+                   <MenubarItem className ="text-yellow-400  hover:text-yellow-400 font-thin hover:font-semibold transition-all" >
                      {item}
                     </MenubarItem>
                     </Link>
@@ -125,11 +139,11 @@ import {
           </MenubarContent>
         </MenubarMenu>
        
-        {/* <MenubarMenu >
+        <MenubarMenu >
         <Link href="/components/dsr" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >DSR</MenubarTrigger>
         </Link>
-        </MenubarMenu> */}
+        </MenubarMenu>
         <MenubarMenu >
         <Link href="/dashboard" className="hover:bg-white hover:text-pmpblue rounded-md hover:no-underline text-pmpyellow">
         <MenubarTrigger >Home</MenubarTrigger>

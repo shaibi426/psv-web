@@ -38,7 +38,7 @@ const router = useRouter()
       setEmptyUser('hidden')
       setEmptyPwd('hidden')
       
-      axios.get(`http://cpo.nhmp.gov.pk:7077/users/getUser/${user}`).then(
+      axios.get(`http://203.99.61.134:7077/users/getUser/${user}`).then(
         response =>{
           const result = response.data[0]
           if(result){

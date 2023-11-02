@@ -19,6 +19,17 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
 };
 
+
+
+const custumizedLegend =(x,y)=>{
+  return(
+    <div className='flex flex-row  justify-center p-1 '>
+      <div className='px-1 bg-[#00C49F] text-white rouded-sm text-xs  font-semibold'> Valid:{x}</div>
+      <div className='px-1 bg-[#AF7AC5] text-white rouded-sm text-xs  font-semibold'>Expired:{y}</div>
+    </div>
+  )
+}
+
   export default function FitnessGrph(){
   
     const [expired,setExpired]=useState(3)
@@ -33,7 +44,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     const getExpiredLicience = async () => {
 
       // axios.get('http://cpo.nhmp.gov.pk:7077/web/graph/fitnessExpiry').then(
-        axios.get('http://cpo.nhmp.gov.pk:7077/web/graph/fitnessExpiry').then(
+        axios.get('http://203.99.61.134:7077/web/graph/fitnessExpiry').then(
         response =>{
           const result = response.data
        
@@ -55,7 +66,8 @@ useEffect(()=>{
               <div className=" graph-body"> 
               <ResponsiveContainer width="100%" height="100%">
         <PieChart width={400} height={400}>
-        <Legend verticalAlign="top" height={30} />
+        <Legend verticalAlign="top" height={30} content={custumizedLegend(valid,expired)} />
+        
           <Pie
             data={data}
             cx="50%"
@@ -66,7 +78,6 @@ useEffect(()=>{
             fill="#8884d8"
             dataKey="value"         
           >
-            <Legend />
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
@@ -75,6 +86,7 @@ useEffect(()=>{
        
       </ResponsiveContainer>
               </div>
+         
               <div className="graph-footer ">
                 Fitness Certificates
                 <span className='footer-value'>
