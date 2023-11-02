@@ -48,9 +48,13 @@ export default function TripOfDriver(props) {
     axios.get(`http://203.99.61.134:7077/web/dvr/tripOfDriver/${startDate}/${endDate}/${startTime}/${endTime}/${drvCnic}`).then(
     response =>{
       const result = response.data
-      setData(result);
-      setDvrName(result[0].driverName)
-      setDvrLicense(result[0].dvrLicenseNo)
+      if (result){
+        setData(result);
+        setDvrName(result[0].driverName)
+        setDvrLicense(result[0].dvrLicenseNo)
+      }else{
+        alert("No data Found ")
+      }
       
     }
   )

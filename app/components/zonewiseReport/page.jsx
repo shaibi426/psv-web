@@ -22,12 +22,17 @@ export default function Dsr() {
 
 
   const getData = async () => {
-      axios.get(`http://localhost:5000/web/daily/zonewisedsr/${startDate}/${endDate}/${startTime}/${endTime}`).then(
+      axios.get(`http://203.99.61.134:7077/web/daily/zonewisedsr/${startDate}/${endDate}/${startTime}/${endTime}`).then(
       response =>{
         const result = response.data
-        setPsvData(result.vehicles)
-        setdvrData(result.driver)
-        setinspData(result.inspection)
+        if(result){
+          setPsvData(result.vehicles)
+          setdvrData(result.driver)
+          setinspData(result.inspection)
+        }else{
+          alert("No data Found")
+        }
+       
         
       }
     )

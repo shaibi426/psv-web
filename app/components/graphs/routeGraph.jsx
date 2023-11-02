@@ -20,13 +20,16 @@ export default function RoutGraph() {
     { name: 'Expired', value: expired, percentage:`${(expired * 100/(valid+expired)).toFixed(0)}%`}
   
   ];
-
+  // 
   const getExpiredLicience = async () => {
    axios.get("http://203.99.61.134:7077/web/graph/routeExpiry").then(
     response=>{
         const validity = response.data
-      setExpired(validity[0]['total'])
-      setvalid(validity[1]['total']) 
+        if (validity){
+
+          setExpired(validity[0]['total'])
+          setvalid(validity[1]['total']) 
+        }
     }
    )
    

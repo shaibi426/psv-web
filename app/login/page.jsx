@@ -114,7 +114,7 @@ const router = useRouter()
 //   }}
 
 // }
-    getUser();
+    // getUser();
   
    
   },[user ]);

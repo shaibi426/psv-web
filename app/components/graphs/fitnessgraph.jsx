@@ -47,9 +47,10 @@ const custumizedLegend =(x,y)=>{
         axios.get('http://203.99.61.134:7077/web/graph/fitnessExpiry').then(
         response =>{
           const result = response.data
-       
-           setvalid(result[0]['total'])
-            setExpired(result[1]['total'])
+       if (result){
+         setvalid(result[0]['total'])
+         setExpired(result[1]['total'])
+        }
   
         }
       )

@@ -17,9 +17,12 @@ export default function SideBarMenu() {
        axios.get('http://203.99.61.134:7077/web/totalRecords').then(
         response=>{
           const result = response.data
-          setCompanies(result[0]['companies'])
-          setDrivers(result[0]['drivers'])
-          setVehicles(result[0]['psvs'])
+
+          if (result){
+            setCompanies(result[0]['companies'])
+            setDrivers(result[0]['drivers'])
+            setVehicles(result[0]['psvs'])
+          }
         }
        )
     }

@@ -32,9 +32,11 @@ export default function LicienceGraph(){
       .then((response) => {
 
         const result = response.data;
-        console.log(result)
-        setvalid(result[0]["total"]);
-        setExpired(result[1]["total"]);
+        if (result){
+
+          setvalid(result[0]["total"]);
+          setExpired(result[1]["total"]);
+        }
       });
   }; 
 
