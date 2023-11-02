@@ -59,7 +59,15 @@ export default function Dsr() {
           </div>
         </div>
 
-       
+        <div className=" bg-teal-700  ">
+      
+      <div className="text-center font-extrabold   text-xl p-1 bg-slate-200">Daily Situation Report </div>
+      <div className="  text-white flex flex-row justify-between  py-1 px-20">
+      <div className=" w-2/6"> <b>Date: </b> <i className="pl-2 pr-2">{`${startDate.split("-").reverse().join("-")}`}</i>  <b>to</b>   <i className="pl-2 pr-2">{`${startDate.split("-").reverse().join("-")} `}</i></div>
+
+      <div className="text-end w-2/6"> <b>Time:</b> <i>{`${startTime} `}</i> <b>to</b> <i>{`${endTime} `}</i></div>
+      </div>
+      </div>
       {/* ========================================================= vehicles */}
       <div className="w-full flex  flex-col  items-center justify-center flex-grow m-8">
         <div className="w-5/6  rounded-md   px-1 py-2 m-2  border-2 border-slate-500">

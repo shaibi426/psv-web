@@ -80,6 +80,15 @@ import {
         
            
                  {/* =======================================================Gen report */}
+
+                 
+            <MenubarSub>
+            
+            <Link href="/components/zonewiseReport" className="hover:no-underline text-sm py-1 flex items-center justify-center">
+            Zone Wise Progress
+                </Link>
+           
+          </MenubarSub>
             <MenubarSub>
               <MenubarSubTrigger>General Reports</MenubarSubTrigger>
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y border-0">
@@ -99,7 +108,7 @@ import {
                   
                   } 
                     className="hover:no-underline">
-                   <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
+                   <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:bg-white hover:bg-opacity-10 transition-all" >
                      {item}
                     </MenubarItem>
                     </Link>
@@ -113,7 +122,7 @@ import {
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 border-0">
                 {VehReports.map((item,key)=>(
                   <Link key ={key} href={`/components/${item}`} className="hover:no-underline">
-                   <MenubarItem className ="text-yellow-400  hover:text-yellow-400 font-thin hover:font-semibold transition-all" >
+                   <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:bg-white hover:bg-opacity-10 transition-all" >
                      {item}
                     </MenubarItem>
                     </Link>
@@ -127,7 +136,7 @@ import {
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y  border-0">
               {DriversReport.map((item,key)=>(
                   <Link key = {key} href={item=='License Expiry Report'?"/components/driverReports/licenseExpiry":`/components/${item}`} className="hover:no-underline">
-                   <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:font-semibold transition-all" >
+                   <MenubarItem className ="text-yellow-400 hover:text-yellow-400 hover:bg-white hover:bg-opacity-10 transition-all" >
                      {item}
                     </MenubarItem>
                     </Link>
@@ -135,6 +144,9 @@ import {
               
               </MenubarSubContent>
             </MenubarSub>
+
+
+
            
           </MenubarContent>
         </MenubarMenu>

@@ -5,7 +5,7 @@ import { Inspcolumns, columns } from "./columns";
 import { Bus,ClipboardSignature, User2 } from "lucide-react";
 import axios from "axios";
 import Datepicker from "../../ui/datepicker";
-import { DataTablewithFilters } from "@/app/ui/filterTable";
+import { DataTablewithFilters } from "@/app/ui/filterzonalTable";
 
 
 export default function Dsr() {
@@ -22,7 +22,7 @@ export default function Dsr() {
 
 
   const getData = async () => {
-      axios.get(`http://localhost:5000/web/daily/zonewisedsr/2023-10-31/2023-11-01`).then(
+      axios.get(`http://localhost:5000/web/daily/zonewisedsr/${startDate}/${endDate}/${startTime}/${endTime}`).then(
       response =>{
         const result = response.data
         setPsvData(result.vehicles)
@@ -58,6 +58,15 @@ export default function Dsr() {
       </button>
           </div>
         </div>
+        <div className=" bg-teal-700  ">
+      
+      <div className="text-center font-extrabold   text-xl p-1 bg-slate-200">Zone wise Progress Report </div>
+      <div className="  text-white flex flex-row justify-between  py-1 px-20">
+      <div className=" w-2/6"> <b>Date: </b> <i className="pl-2 pr-2">{`${startDate.split("-").reverse().join("-")}`}</i>  <b>to</b>   <i className="pl-2 pr-2">{`${startDate.split("-").reverse().join("-")} `}</i></div>
+
+      <div className="text-end w-2/6"> <b>Time:</b> <i>{`${startTime} `}</i> <b>to</b> <i>{`${endTime} `}</i></div>
+      </div>
+      </div>
 
        
       {/* ========================================================= vehicles */}
