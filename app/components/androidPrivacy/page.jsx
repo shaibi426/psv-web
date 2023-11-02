@@ -26,8 +26,8 @@ We may collect the following personal information when you use our app:<br />
 Note: This app collects only organization employee data. <br />
 <b>2.2 Non-Personal Information</b> <br />
 We may also collect non-personal information such as:<br />
-● 	Device information "e.g., device type, operating system, and device ID"<br />
-● 	App usage data "e.g., session duration, features used, and error reports"<br />
+● 	Device information e.g., device type, operating system, and device ID<br />
+● 	App usage data e.g., session duration, features used, and error reports<br />
 <b>3. How We Use Your Information </b><br />
 We use your personal information for the following purposes:<br />
 ● 	To provide you with the services and information offered by the app.<br /> 

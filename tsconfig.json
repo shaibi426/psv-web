@@ -42,7 +42,7 @@
     "app/components/graphs/Trackingline.jsx",
     "app/components/graphs/fitnessgraph.jsx",
     "app/components/sidebar.jsx",
-    "app/components/Reports/generalReports/psv travvelled/page.jsx",
+    "app/components/[Reports]/generalReports/psv travvelled/page.jsx",
     "app/components/generalReports/PSvsTravelled/...reportData/page.tsx",
     "app/components/driverReports/licenseExpiry/page.tsx",
     "build/types/**/*.ts"
