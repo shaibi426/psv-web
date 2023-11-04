@@ -45,7 +45,7 @@ export default function TripOfDriver(props) {
 
   const getData = async () => {
     if(startDate,endDate,startTime,endTime,drvCnic){
-    axios.get(`http://203.99.61.134:7077/web/dvr/tripOfDriver/${startDate}/${endDate}/${startTime}/${endTime}/${drvCnic}`).then(
+    axios.get(`http://116.0.45.14:5000/web/dvr/tripOfDriver/${startDate}/${endDate}/${startTime}/${endTime}/${drvCnic}`).then(
     response =>{
       const result = response.data
       if (result){

@@ -89,6 +89,14 @@ import {
                 </Link>
            
           </MenubarSub>
+
+          <MenubarSub>
+            
+            <Link href="/components/sectorwiseReport" className="hover:no-underline text-sm py-1 flex items-center justify-center">
+            Sector Wise Progress
+                </Link>
+           
+          </MenubarSub>
             <MenubarSub>
               <MenubarSubTrigger>General Reports</MenubarSubTrigger>
               <MenubarSubContent className=" bg-pmpblue bg-opacity-90 text-yellow-400 divide-y border-0">

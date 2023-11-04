@@ -45,7 +45,7 @@ export default function TripOfDriver(props) {
     
     if(startDate,endDate,startTime,endTime,psvNo){
 
-      axios.get(`http://203.99.61.134:7077/web/psv/treval/${startDate}/${endDate}/${startTime}/${endTime}/${psvNo}`)
+      axios.get(`http://116.0.45.14:5000/web/psv/treval/${startDate}/${endDate}/${startTime}/${endTime}/${psvNo}`)
       .then(
         response =>{
           const result = response.data
