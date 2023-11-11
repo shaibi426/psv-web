@@ -57,18 +57,18 @@ const router = useRouter()
   return (
     <div className="bg-[#051532]">
   
-      <div className=' w-full flex flex-row  gap-2 items-center justify-stretch pl-10 pt-5'>
-      <Image src={logo}  alt="logo" width={80} height ={80} className='sm:w-30 sm:h-30 w-16 h-16'
+      <div className=' w-full flex flex-row  gap-2 items-center justify-stretch pl-8 pb-5 pt-5 sm:pl-10'>
+      <Image src={logo}  alt="logo" width={90} height ={90} className='sm:w-34 sm:h-34 w-10 h-10'
        />
-       <h1 className=' font-extrabold sm:text-3xl text-white font-prompt '> PSVs Management Information System (PSV-MIS)</h1>
+       <h1 className=' font-extrabold sm:text-3xl text-white font-prompt text-xs md:text-2xl lg:text-3xl  '> PSVs Management Information System <span className='block ml-20 sm:ml-1 sm:inline'>(PSV-MIS)</span></h1>
         </div>
-    <div className=" h-screen flex justify-between items-center ">
-      <div className =' items-start pt-10 h-full w-2/4 justify-center hidden sm:block'>
+    <div className=" h-screen flex justify-between items-center md:items-start lg:items-center ">
+      <div className =' items-start pt-10 h-full w-2/4 justify-center hidden sm:block md:hidden lg:block '>
       <Image src={MainBck}  alt="main page background" className=''
        />
        </div>
-       <div className ="sm:w-2/5 h-full pb-10 flex items-start justify-center w-full ">
-        <div className='bg-blue-100 sm:w-3/4  bg-opacity-10 rounded-md h-3/4 pt-15 p-10 flex flex-col justify-center gap-3'>
+       <div className ="sm:w-2/5 h-full pb-10 flex items-start justify-center w-full md:w-full lg:w-2/5 md:h-4/5 md:items-center  lg:h-full lg:items-start  ">
+        <div className='bg-blue-100 sm:w-3/4 md:w-4/6 lg:3/4 bg-opacity-10 rounded-md h-3/4 pt-15 p-10 flex flex-col justify-center gap-3'>
 
           <div>
             <h1 className='text-3xl pb-5 font-extrabold text-yellow-400'> Log <span className='text-blue-400'> in</span> </h1>

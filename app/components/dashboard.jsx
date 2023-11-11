@@ -9,12 +9,12 @@ import TrackingLineGraph from "./graphs/Trackingline";
 export default function Dashboard(){
 
     return (
-      <div className="bg-gray-300 h-screen flex flex-row ">
+      <div className="bg-gray-300 h-screen flex md:flex-row flex-col  ">
         <SideBarMenu />
         {/* ------------------------------------------dashboard container */}
         <div className="bg-gray-200 w-full">
           {/* ----------------------------------------------------body */}
-          <div className="flex flex-wrap flex-row items-center justify-evenly">
+          <div className="flex flex-wrap md:flex-row flex-col items-center justify-evenly ">
             <RoutGraph />
             <LicienceGraph />
             <FitnessGrph />

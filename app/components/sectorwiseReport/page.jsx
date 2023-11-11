@@ -22,7 +22,7 @@ export default function Dsr() {
 
 
   const getData = async () => {
-      axios.get(`http://116.0.45.14:5000/web/daily/sectorwisedsr/${startDate}/${endDate}/${startTime}/${endTime}`).then(
+      axios.get(`http://203.99.61.134:7077/web/daily/sectorwisedsr/${startDate}/${endDate}/${startTime}/${endTime}`).then(
       response =>{
         const result = response.data
         if(result){
@@ -65,9 +65,9 @@ export default function Dsr() {
         </div>
         <div className=" bg-teal-700  ">
       
-      <div className="text-center font-extrabold   text-xl p-1 bg-slate-200">Zone wise Progress Report </div>
+      <div className="text-center font-extrabold   text-xl p-1 bg-slate-200">Sector wise Progress Report </div>
       <div className="  text-white flex flex-row justify-between  py-1 px-20">
-      <div className=" w-2/6"> <b>Date: </b> <i className="pl-2 pr-2">{`${startDate.split("-").reverse().join("-")}`}</i>  <b>to</b>   <i className="pl-2 pr-2">{`${startDate.split("-").reverse().join("-")} `}</i></div>
+      <div className=" w-2/6"> <b>Date: </b> <i className="pl-2 pr-2">{`${startDate.split("-").reverse().join("-")}`}</i>  <b>to</b>   <i className="pl-2 pr-2">{`${endDate.split("-").reverse().join("-")} `}</i></div>
 
       <div className="text-end w-2/6"> <b>Time:</b> <i>{`${startTime} `}</i> <b>to</b> <i>{`${endTime} `}</i></div>
       </div>
