@@ -22,7 +22,7 @@ export default function Dsr() {
 
 
   const getData = async () => {
-    console.log()
+  
       axios.get(`http://203.99.61.134:7077/web/daily/zonewisedsr/${startDate}/${endDate}/${startTime}/${endTime}`).then(
       response =>{
         const result = response.data

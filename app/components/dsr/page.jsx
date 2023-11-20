@@ -22,7 +22,7 @@ export default function Dsr() {
 
 
   const getData = async () => {
-      axios.get(`http://203.99.61.134:7077/web/hq/getAllRecords/${startDate}/${endDate}/${startTime}/${endTime}`).then(
+      axios.get(`http://116.0.45.14:5000/web/hq/getAllRecords/${startDate}/${endDate}/${startTime}/${endTime}`).then(
       response =>{
         const result = response.data
         setPsvData(result.psvs)
