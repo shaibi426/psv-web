@@ -37,6 +37,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
+import {VscSearch} from "react-icons/vsc"
 
 
 
@@ -74,16 +75,20 @@ export function DataTablewithFilters<TData, TValue>({
       <div className="w-full flex justify-center items-center px-16">
 
       
-  <div className=' relative flex justify-between gap-2 bg- border border-slate-400 rounded-md p-2 px-5 bg-slate-50  w-5/6 mb-10'>
-          <div className=' flex  justify-start gap-2 items-center w-5/6'>
-        <label htmlFor="" className='font-semibold'> Enter Officer Name </label>
-        <input type="search" className='border border-slate-400 rounded-md p-1 w-3/6 pl-2'
+  <div className='flex justify-center gap-2   rounded-md p-2 px-5   w-5/6 mb-10'>
+          <div className=' flex flex-col justify-center  gap-2 items-center w-full'>
+        {/* <label htmlFor="" className=''> Enter Officer Name </label> */}
+        <div className ='relative w-full '>
+        <VscSearch style={{color:"blue"}} className ='scale-125 absolute z-50 left-4 top-3 ' />
+        <input type="search" className=' border border-slate-400 rounded-full p-2 w-full pl-14 '
          value={(table.getColumn("officer")?.getFilterValue() as string) ?? ""}
          onChange={(event) =>
            table.getColumn("officer")?.setFilterValue(event.target.value)
          }
+         placeholder="Enter Officer Name"
         
         />
+        </div>
           </div>
 
     
