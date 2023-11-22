@@ -1,7 +1,7 @@
 
 //------------------------------------------------------Report headers
 import { ColumnDef } from "@tanstack/react-table"
-
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import axios from "axios"
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 var userzones:[{}]
+var usersectors:[{}]
 
 export type rptCol = {
   uid:string
@@ -30,14 +31,25 @@ export type rptCol = {
   }
  
  
-  const transferOfficer =(id:string)=>{
-    alert(id)
-  }
+  function transferOfficer(id:string,transferDetail:{}) {      
+    try {
+    axios.patch(`http://localhost:5000/web/user/transfer/${id}`, transferDetail
+    )
+    .then(response =>{ 
+        alert('Data updated');
+        })}
+     catch (error) {
+      console.log(error)
+    }
+    alert(JSON.stringify(transferDetail))
+  }   
+ 
+ 
 
   //=======================get zones 
-  const getZones = (region:string)=>{
+  const getZones = ()=>{
 
-    axios.get(`http://116.0.45.14:5000/ofc/zone/${region}`).then(
+    axios.get(`http://localhost:5000/ofc/zone`).then(
     response =>{
       const result = response.data
       if(result){
@@ -46,14 +58,43 @@ export type rptCol = {
       }else{
         alert("No data Found")
       }
-     
-      
     }
   )
 } 
 
+//=======================================================get zone 
+const getSector = (zone:string,sectorFn:Function)=>{
 
-getZones('North')
+  axios.get(`http://localhost:5000/ofc/sector/${zone}`).then(
+  response =>{
+    const result = response.data
+    if(result){
+     sectorFn(result)
+    }else{
+      alert("No data Found")
+    }
+  }
+)
+} 
+
+//========================================get Beats 
+const getBeats = (sector:string,beatFn:Function)=>{
+
+  axios.get(`http://localhost:5000/ofc/beat/${sector}`).then(
+  response =>{
+    const result = response.data
+    if(result){
+     beatFn(result)
+    }else{
+      alert("No data Found")
+    }
+  }
+)
+} 
+
+
+
+getZones()
 export const columns: ColumnDef<rptCol>[] = [
   {
     id: 'officer',
@@ -80,6 +121,14 @@ export const columns: ColumnDef<rptCol>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
+
+          const[sectors,setSectors] = useState()
+          const[beats,setBeats] = useState()
+
+          const [zone,setZone] = useState(" ")          
+          const [sector,setSector] = useState(" ")
+          const [beat,setBeat] = useState(" ")
+
           const officer = row.original
           
      
@@ -100,39 +149,49 @@ export const columns: ColumnDef<rptCol>[] = [
 
                 <div className="flex flex-col justify-start">
                   <label htmlFor="" className="font-semibold text-xs ml-3">Zone</label>
-                <select name="" id="" className=" border rounded-md border-gray-300 p-2 m-2">
-                {userzones.map((option) => (
-              <option value={option.zone}>{option.zone}</option>
+                <select name="" id='Select Zone' className=" border rounded-md border-gray-300 p-2 m-2 divide-y-2" 
+                onChange={(e)=>{getSector(e.target.value,setSectors) , setZone(e.target.value)}}
+                >
+                {userzones.map((item) => (
+              <option value={item.zone} className="bg-gray-200 m-5" >{item.zone}</option>
             ))}
-             
-                </select>
+             </select>
                 </div>
 
 
                 <div className="flex flex-col justify-start">
                   <label htmlFor="" className="font-semibold text-xs ml-3">Sector</label>
-                <select name="" id=""  className=" border rounded-md border-gray-300 p-2 m-2">
-
-                  <option value="">North 1</option>
-                  <option value="">North 2</option>
-                  <option value="">North 3</option>
+                <select name="" id="Select Sector"  className=" border rounded-md border-gray-300 p-2 m-2"
+                onChange={(e)=>{getBeats(e.target.value,setBeats),setSector(e.target.value)}}
+                >
                  
-                </select>
+                  {
+                    sectors?.map((item)=>(
+                      <option value={item.sector}> {item.sector}</option>
+                    ))
+                  }
+             </select>
                 </div>
 
                 <div className="flex flex-col justify-start">
                   <label htmlFor="" className="font-semibold text-xs ml-3">Beat</label>
-                <select name="" id=""  className=" border rounded-md border-gray-300 p-2 m-2">
-                 
-                  <option value="">Beat-1</option>
-                  <option value="">Beat-2</option>
-                  <option value="">Beat-3</option>
-             
+                <select name="" id=""  className=" border rounded-md border-gray-300 p-2 m-2"
+                onChange={(e)=>setBeat(e.target.value)}
+                >
+                {beats?.map((item) => (
+              <option value={item.beat} className="bg-gray-200 m-5" >{item.beat}</option>
+            ))}
                 </select>
                 </div>
                 </div>
 
-                <Button variant="ghost" className="bg-blue-500 py-0 w-full" onClick={()=>transferOfficer(officer.uid)}>
+                <Button variant="ghost" className="bg-blue-500 py-0 w-full" onClick={()=>transferOfficer(officer.uid,
+                  {  
+                    "region": officer.region,
+                    "zoneId" : zone,
+                      "sectorId": sector,
+                      "beatId" : beat
+                })}>
                   <span className="sr-only">Open menu</span>
                   Save
                 </Button>
