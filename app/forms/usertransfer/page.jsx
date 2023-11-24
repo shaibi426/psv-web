@@ -8,9 +8,17 @@ import axios from "axios"
 
 
 const Usertransfer = () => {
+const [userType,setUserType] = useState("")
+const [ofcType,setOfcType]  =  useState("") 
+const [userOfc,setUserOfc]  =  useState("")
 
+
+
+
+
+  const [allUsers,setAllUsers]= useState([])
   const [sectorusers,setSectorUsers]= useState()
-  const [zonalusers,setZonalUsers]= useState()
+  const [zonalusers,setZonalUsers]= useState([])
   const [regionusers,setRegionUsers]= useState([])
   
   const getRegionData = (region)=>{
@@ -18,12 +26,9 @@ const Usertransfer = () => {
     axios.get(`http://116.0.45.14:5000/web/user/regionUser/'North'`).then(
     response =>{
       const result = response.data
-      console.log(result)
+     
       if(result){
-
-        console.log(result)
         setRegionUsers(result)
-        console.log(regionusers)
        
       }else{
         alert("No data Found")
@@ -34,10 +39,52 @@ const Usertransfer = () => {
   )
 } 
 
+const getZonalData = (zone)=>{
+  // axios.get(``http://116.0.45.14:5000/web/user/zoneWiseUsers/${zone}`)`)
+  axios.get(`http://116.0.45.14:5000/web/user/zoneWiseUsers/N5 South`).then( 
+  response =>{
+    const result = response.data
+   
+    if(result){
+      setZonalUsers(result)
+      console.log(zonalusers)
+    }else{
+      alert("No data Found")
+    }  
+  }
+)
+} 
+//=========================================================
 
-useEffect(()=>{
-getRegionData()
-},[])
+const getuserData = (ofc,userOfc)=>{
+
+  axios.get(`http://116.0.45.14:5000/web/user/getUsers/${ofc}/${userOfc}`).then( 
+  response =>{
+    const result = response.data
+   
+    if(result){
+      setAllUsers(result)
+      console.log(allUsers)
+    }else{
+      alert("No data Found")
+    }  
+  }
+)
+} 
+//=========================================================
+
+
+// useEffect(()=>{
+// // getRegionData()
+// // getZonalData()
+// getuserData(ofcType,userOfc)
+
+// },
+
+// // [regionusers,zonalusers,allUsers]
+// [allUsers]
+
+// )
   return (
     <div className = '[background:linear-gradient(68.10deg,rgba(123.95,176.37,255,0.38)_17.19%,rgba(143.69,144.55,134.55,0.35)_70%)] min-h-screen flex items-center flex-col'>
 
@@ -45,10 +92,32 @@ getRegionData()
         <h1 className='font-prompt font-extrabold text-4xl  '> OFFICER TRANSFER FORM </h1>
       </div>
       <div className='h-5/6 w-10/12  flex flex-col items-center  justify-start mb-20'>
+
+        <input type="text" value = {userType} onChange={e=> setUserType(e.target.value)} />
+        <output> {userType}</output>
+        <button onClick={ ()=>{
+            console.log(userType)
+          userType =='sectorAdmin'?()=>{
+            setOfcType('sectorId')
+            setUserOfc('North 1')
+            
+          }:userType =='zonalAdmin'?()=>{
+            setOfcType('zoneId')
+            setUserOfc('N5 North')
+          }:userType =='regionalAdmin'?()=>{
+            setOfcType('region')
+            setUserOfc('North')
+          }:null
+     
+          // getuserData(ofcType,userOfc)       
+        }
+
+        
+        }>GEtData</button>
        
         <div className=''>
 
-        <DataTablewithFilters columns={columns} data={regionusers}/>
+        <DataTablewithFilters columns={columns} data={allUsers}/>
         </div>
 
       </div>
@@ -59,5 +128,6 @@ getRegionData()
 }
 
 export default Usertransfer
+
 
 

@@ -61,6 +61,7 @@ export function DataTablewithFilters<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    
      state: {
       columnVisibility,
       columnFilters,

@@ -1,10 +1,11 @@
 
 //------------------------------------------------------Report headers
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, RowSelection, flexRender } from "@tanstack/react-table"
 import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import axios from "axios"
+
 
 import {
   DropdownMenu,
@@ -15,6 +16,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ACTION_FAST_REFRESH } from "next/dist/client/components/router-reducer/router-reducer-types"
+import { table } from "console"
+import { render } from "react-dom"
 
 var userzones:[{}]
 var usersectors:[{}]
@@ -29,19 +33,24 @@ export type rptCol = {
   sector:string
   beat:string 
   }
+
+
  
  
-  function transferOfficer(id:string,transferDetail:{}) {      
+  function transferOfficer(id:string,transferDetail:{},transferlog:{}) {      
     try {
     axios.patch(`http://localhost:5000/web/user/transfer/${id}`, transferDetail
     )
-    .then(response =>{ 
-        alert('Data updated');
+    .then(() =>{ 
+ 
+        alert(`---------Data Saved--------------`);
+      axios.post('http://localhost:5000/web/user/transferlog',transferlog)
+
         })}
      catch (error) {
       console.log(error)
     }
-    alert(JSON.stringify(transferDetail))
+    
   }   
  
  
@@ -98,7 +107,7 @@ getZones()
 export const columns: ColumnDef<rptCol>[] = [
   {
     id: 'officer',
-    accessorFn: row => `${row.rank} ${row.name} (${row.belt})`,
+    accessorFn: row => `${row.rank} ${row.name}   (${row.belt})`,
     header: "Officer",
   },
   {
@@ -122,9 +131,11 @@ export const columns: ColumnDef<rptCol>[] = [
         enableHiding: false,
         cell: ({ row }) => {
 
+          const[transferMenuState,settransferMenuState] = useState("hidden")
+//==========================================data
           const[sectors,setSectors] = useState()
           const[beats,setBeats] = useState()
-
+//--------------------------------------transfer details
           const [zone,setZone] = useState(" ")          
           const [sector,setSector] = useState(" ")
           const [beat,setBeat] = useState(" ")
@@ -135,12 +146,12 @@ export const columns: ColumnDef<rptCol>[] = [
           return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="bg-blue-500 py-0" >
+                <button  className="bg-blue-500 p-2 rounded-md hover:bg-slate-800 text-white" >
                   <span className="sr-only">Open menu</span>
                   Tranfer
-                </Button>
+                </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-white shadow-ld shadow-blue-200 border border-gray-500 ">
+              <DropdownMenuContent align="end" className={`bg-white shadow-ld shadow-blue-200 border border-gray-500 ${!transferMenuState}`}>
                 <DropdownMenuLabel className="bg-gray-300 text-center"> Enter Tranfer Detail</DropdownMenuLabel>
                 <DropdownMenuLabel className="bg-gray-200 text-center mb-4 text-xs"> {officer.rank + " "+ officer.name + " " + officer.belt}</DropdownMenuLabel>
                 <div className="flex flex-col gap-2 justify-center items-center">
@@ -184,22 +195,39 @@ export const columns: ColumnDef<rptCol>[] = [
                 </select>
                 </div>
                 </div>
-
-                <Button variant="ghost" className="bg-blue-500 py-0 w-full" onClick={()=>transferOfficer(officer.uid,
+                <DropdownMenuItem className="w-full justify-end">
+                <Button variant="secondary" className="bg-blue-500 py-0 w-full text-white hover:bg-gray-700" onClick={()=>{
+                   
+                
+                  transferOfficer(officer.uid,
                   {  
-                    "region": officer.region,
-                    "zoneId" : zone,
+                      "date" : "2023-11-23",
+                      "admin":  1234546,
+                      "region": officer.region,
+                      "zoneId" : zone,
                       "sectorId": sector,
                       "beatId" : beat
-                })}>
-                  <span className="sr-only">Open menu</span>
+                },
+                {
+                  "date" : "2023-11-01",
+                  "admin" :123456,
+                  "officer":officer.uid ,
+                  "from" : `region:${officer.region}  Zone:${officer.zone}  Sector:${officer.sector} Beat:${officer.beat} `,
+                  "to" : `region ${officer.region}  Zone ${zone}  Sector ${sector} Beat ${beat}`
+                }
+                )
+
+                }}>
                   Save
                 </Button>
+                </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
           )
         },
+
+        
       },
       
       
