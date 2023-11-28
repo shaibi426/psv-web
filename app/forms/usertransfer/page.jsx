@@ -95,25 +95,38 @@ const getuserData = (ofc,userOfc)=>{
 
         <input type="text" value = {userType} onChange={e=> setUserType(e.target.value)} />
         <output> {userType}</output>
-        <button onClick={ ()=>{
-            console.log(userType)
-          userType =='sectorAdmin'?()=>{
-            setOfcType('sectorId')
-            setUserOfc('North 1')
-            
-          }:userType =='zonalAdmin'?()=>{
-            setOfcType('zoneId')
-            setUserOfc('N5 North')
-          }:userType =='regionalAdmin'?()=>{
-            setOfcType('region')
-            setUserOfc('North')
-          }:null
-     
-          // getuserData(ofcType,userOfc)       
-        }
 
-        
-        }>GEtData</button>
+
+
+        <button onClick={ ()=>{
+             if(userType == 'sectorAdmin'){
+                 setOfcType('sectorId')
+                 setUserOfc('North 1')
+             }
+
+              else if(userType =='zonalAdmin'){
+                  setOfcType('zoneId')      
+                  setUserOfc('N5 Central')
+                 
+              }
+              else if(userType =='regionalAdmin'){
+                  setOfcType('region')
+                  setUserOfc('South')
+                 
+            }
+            else{
+              console.log("Only Admins are Allowed")
+            }
+
+            if(ofcType && userOfc){
+
+              getuserData(ofcType,userOfc)
+            }
+          } 
+        }  
+
+          className='bg-red-400 rounded-md p-2 mt-2'
+   >GEtData</button>
        
         <div className=''>
 

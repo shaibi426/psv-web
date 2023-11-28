@@ -1,7 +1,7 @@
 
 //------------------------------------------------------Report headers
 import { ColumnDef, RowSelection, flexRender } from "@tanstack/react-table"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import axios from "axios"
@@ -141,8 +141,33 @@ export const columns: ColumnDef<rptCol>[] = [
           const [beat,setBeat] = useState(" ")
 
           const officer = row.original
+//======================================================= daynamic show hide components on user type 
+        const userType = "regionalAdmin"
+        const [showZone,setShowZone] = useState("block")
+        const [showSector,setShowSector] = useState("block")
+
+        useEffect(()=>{
+          if(userType === 'sectorAdmin'){
+            setShowZone('hidden')
+            setShowSector('hidden')
+        }
+        else if(userType ==="zonalAdmin"){
+          setShowZone('hidden')
+          setShowSector('block')
           
-     
+           
+         }
+         else if  (userType =='regionAdmin'){
+          setShowZone('block')
+          setShowSector('block')
+            
+         }
+
+        },[])
+      
+      
+          
+//===================================================================================================     
           return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -158,7 +183,7 @@ export const columns: ColumnDef<rptCol>[] = [
 
                <div className="flex flex-row ">
 
-                <div className="flex flex-col justify-start">
+                <div className={`flex flex-col justify-start  ${showZone}`}>
                   <label htmlFor="" className="font-semibold text-xs ml-3">Zone</label>
                 <select name="" id='Select Zone' className=" border rounded-md border-gray-300 p-2 m-2 divide-y-2" 
                 onChange={(e)=>{getSector(e.target.value,setSectors) , setZone(e.target.value)}}
@@ -170,7 +195,7 @@ export const columns: ColumnDef<rptCol>[] = [
                 </div>
 
 
-                <div className="flex flex-col justify-start">
+                <div className= {`flex flex-col justify-start  ${showSector}`}>
                   <label htmlFor="" className="font-semibold text-xs ml-3">Sector</label>
                 <select name="" id="Select Sector"  className=" border rounded-md border-gray-300 p-2 m-2"
                 onChange={(e)=>{getBeats(e.target.value,setBeats),setSector(e.target.value)}}
