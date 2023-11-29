@@ -6,8 +6,10 @@ import Dateinput from '../../ui/dateInput';
 import Textinput from '../../ui/textInput';
 import Textarea from '../../ui/textArea';
 import Pdfpicker from '../../ui/pdfpicker';
+import axios from'axios'
 
 const Psvban = () => {
+
 const today = new Date().toISOString().split("T")[0]
 
     const [startDate,setStartDate] = useState(today)
@@ -17,6 +19,53 @@ const today = new Date().toISOString().split("T")[0]
     const [authority,setAuthority] = useState("")
 
     const [reason,setReason] =useState("")
+    const [orderDoc,setOrderDoc] =useState("")
+    const [fir,setFir] =useState("")
+
+    // ===================================savind ban detail
+const psvban = {
+        date : '2023-01-01',     
+        Type : 'psv',
+        psv : 'les-2014-456',
+        driver : 121313213,
+        company : 'asdasdas',
+        orderNo : orderNo,
+        issuedby : authority,
+        from : startDate,
+        to : endDate,
+        OfficeType : 'zone',
+        office : 'North 3',
+        Reason : reason,
+        // order : Buffer.from(orderDoc).toString('base64'),
+        // fir : Buffer.from(fir).toString('base64'),
+        order : orderDoc,
+        fir : fir,
+        user : 3450277818265 
+}
+
+
+
+
+
+const saveData =()=> {
+try {
+    axios.post("http://116.0.45.14:5000/web/ban/banpsv" ,psvban)
+    .then(() =>{ 
+ 
+        alert(`---------Data Saved--------------`);
+        })}
+     catch (error) {
+      console.log(error)
+    }
+    
+  }   
+
+
+
+
+
+    
+
 
   return (
     <div className = '[background:linear-gradient(49.10deg,rgba(100,67,200,0.13)_25.19%,rgba(229,255,55,0.05)_70%)] min-h-screen flex items-center flex-col'>
@@ -52,7 +101,7 @@ const today = new Date().toISOString().split("T")[0]
         </div>
 
         {/* ================================== Vehicle detaail */}
-        <div className='border border-slate-400 rounded-md mt-6 p-5 shadow-lg shadow-gray-500'>
+        <div className='border border-slate-400 rounded-md mt-6 p-5 shadow-lg shadow-gray-500 bg-indigo-50'>
             <div className='flex '>
         <div  className='w-2/4 flex flex-col pr-2 '>
         <Output label='Vehicle No :' value = 'LES-2019-4578' />
@@ -77,7 +126,7 @@ const today = new Date().toISOString().split("T")[0]
 
 
     {/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>=-------------Form  */}
-    <div className='border  border-slate-400 rounded-md mt-6 p-5 shadow-lg shadow-gray-500'>
+    <div className='border  border-slate-400 rounded-md mt-6 p-5 shadow-lg shadow-gray-500 bg-indigo-50'>
     <div className='flex '>
         <Textinput  label ='Order No' value = {orderNo} setter ={setOrderNo}/>
         <Textinput  label ='Issued by' value = {authority} setter ={setAuthority}/>
@@ -92,22 +141,17 @@ const today = new Date().toISOString().split("T")[0]
         </div>
 
         <div className='flex '>
-            <Pdfpicker  label= 'Ban Order'/>
-            <Pdfpicker  label= 'FIR (If lodged)'/>
-        
+            <Pdfpicker  label= 'Ban Order'        setter ={setOrderDoc}/>
+            <Pdfpicker  label= 'FIR (If lodged)'  setter ={setFir}/>
         </div>
 
         <div className='flex w-full gap-3 justify-center pt-10 pb-5'>
-            <button className='bg-blue-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Save</button>
-            <button className='bg-red-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Clear</button>
+            <button onClick = {()=>saveData()} className='hover:bg-indigo-600 bg-blue-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Save</button>
+            <button onClick = {()=>console.log(orderDoc)} className='bg-red-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Clear</button>
         
         </div>
     </div>
-       
 
-
-
-       
     </div>
 
     </div>
