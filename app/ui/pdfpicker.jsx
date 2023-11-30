@@ -9,8 +9,8 @@ const Pdfpicker = (props) => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        props.setter(reader.result)
-        // props.setter(Buffer.from(reader.result,'base64'));
+        props.setter(reader.result.split(",")[1])
+        
    
             };
       reader.readAsDataURL(file);
