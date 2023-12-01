@@ -51,6 +51,8 @@ const saveData =()=> {
 try {
     axios.post("http://116.0.45.14:5000/web/ban/banpsv" ,psvban)
     .then(() =>{ 
+
+    axios.patch('http://116.0.45.14:5000/psv/banPsv/BYA200585', {})
  
         alert(`---------Data Saved--------------`);
         })}
