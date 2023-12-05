@@ -7,6 +7,7 @@ import Textinput from '../../ui/textInput';
 import Textarea from '../../ui/textArea';
 import Pdfpicker from '../../ui/pdfpicker';
 import axios from'axios'
+import { lastRecordNo } from '@/appconfig/functions';
 
 const Psvban = () => {
 
@@ -21,41 +22,64 @@ const today = new Date().toISOString().split("T")[0]
     const [reason,setReason] =useState("")
     const [orderDoc,setOrderDoc] =useState("")
     const [fir,setFir] =useState("")
-
+    const [id,setId] =useState("")
     // ===================================savind ban detail
-const psvban = {
-        date : '2023-01-01',     
-        Type : 'psv',
-        psv : 'les-2014-456',
-        driver : 121313213,
-        company : 'asdasdas',
-        orderNo : orderNo,
-        issuedby : authority,
-        from : startDate,
-        to : endDate,
-        OfficeType : 'zone',
-        office : 'North 3',
-        Reason : reason,
-        // order : Buffer.from(orderDoc).toString('base64'),
-        // fir : Buffer.from(fir).toString('base64'),
-        order : orderDoc,
-        fir : fir,
-        user : 3450277818265 
-}
 
 
 
 
 
 const saveData =()=> {
-try {
-    axios.post("http://116.0.45.14:5000/web/ban/banpsv" ,psvban)
+    try {
+    axios.get(`http://localhost:5000/gen/last/banLog/banId`).then(
+        response=>{
+            const result = response.data[0] 
+            
+
+            axios.post("http://116.0.45.14:5000/web/ban/banpsv" ,
+            
+            {
+                banId : result.last,
+                date : '2023-01-01',     
+                Type : 'psv',
+                psv : 'les-2014-456',
+                driver : 121313213,
+                company : 'asdasdas',
+                orderNo : orderNo,
+                issuedby : authority,
+                from : startDate,
+                to : endDate,
+                OfficeType : 'zone',
+                office : 'North 3',
+                Reason : reason,
+                fir : fir,
+                user : 3450277818265 
+        }
+            
+            
+            
+            )
     .then(() =>{ 
 
-    axios.patch('http://116.0.45.14:5000/psv/banPsv/BYA200585', {})
+axios.patch('http://116.0.45.14:5000/psv/banPsv/BYA200585', {
+
+                    banId:result.last,
+                    banStatus :'ban',
+                    banArea :'zone',
+                    banoffice:'N5 North'
+                    
+})
  
-        alert(`---------Data Saved--------------`);
-        })}
+        alert(`---------Data Saved-------------- \n   The Vehicle # BYA-2005-85 has been banned in N5 North Zone from 14-05-2024 to 17-10-2024`);
+        })
+        }
+    )
+
+  
+
+
+
+    }
      catch (error) {
       console.log(error)
     }
@@ -63,7 +87,41 @@ try {
   }   
 
 
+const checkban =(psv)=>{
 
+    axios.get(`http://116.0.45.14:5000/web/ban/checkban/${psv}`).then(
+        response=>{
+            const result = response.data[0]
+
+            console.log(result)
+            if(result.banArea == 'sector'){
+                if(result.banoffice == 'N5 North'){
+                    alert("vehicl eban in sector")
+                }
+            }
+            else if (result.banArea == 'zone'){
+                if(result.banoffice == 'N5 North'){
+                    alert("vehicle ban in Zone")
+                }
+            }
+            else if (result.banArea == 'region'){
+                if(result.banoffice == 'N5 North'){
+                    alert("vehicle ban in Region")
+                }
+            }
+            else if(result.banArea == 'hq'){
+                if(result.banoffice == 'N5 North'){
+                    alert("vehicle ban in NHMP")
+                }
+
+                else{
+                    alert("OFFICE",result.banoffice,'area >>>>>',result.banArea)
+                }
+            }
+        }
+    )
+
+}
 
 
     
@@ -72,7 +130,7 @@ try {
   return (
     <div className = '[background:linear-gradient(49.10deg,rgba(100,67,200,0.13)_25.19%,rgba(229,255,55,0.05)_70%)] min-h-screen flex items-center flex-col'>
 
-    <div className='flex items-center justify-center bg-gradient-to-br from-blue-700 to-purple-700 bg-clip-text text-transparent w-full p-3 my-5'>
+    <div className='flex items-center justify-center bg-gradient-to-br from-blue-700 to-purple-500 bg-clip-text text-transparent w-full p-3 my-5'>
       <h1 className='font-prompt font-extrabold text-4xl'> VEHICLE BAN FORM </h1>
     </div>
 
@@ -149,7 +207,7 @@ try {
 
         <div className='flex w-full gap-3 justify-center pt-10 pb-5'>
             <button onClick = {()=>saveData()} className='hover:bg-indigo-600 bg-blue-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Save</button>
-            <button onClick = {()=>console.log(orderDoc)} className='bg-red-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Clear</button>
+            <button onClick = {()=>checkban('BYA200585')} className='bg-red-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Clear</button>
         
         </div>
     </div>

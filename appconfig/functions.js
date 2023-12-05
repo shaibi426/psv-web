@@ -12,7 +12,17 @@ const userLogin =(x)=>{
     
 }
 
-export {userLogin}
 
 
-//    result.userPwd == pwd? router.push('/dashboard'): alert(" Wrong Password ")
+const lastRecordNo = (table,field)=>{
+  
+    const id = axios.get(`http://localhost:5000/gen/last/${table}/${field}`).then(
+        response=>{
+            const result = response.data[0] 
+            return result.last
+        }
+    )
+   return id
+}
+
+export {userLogin,lastRecordNo}
