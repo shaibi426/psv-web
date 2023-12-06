@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState,Suspense } from 'react'
 import { BsSearch } from "react-icons/bs";
 import Output from './../../ui/output'
 import Dateinput from '../../ui/dateInput';
@@ -8,6 +8,7 @@ import Textarea from '../../ui/textArea';
 import Pdfpicker from '../../ui/pdfpicker';
 import axios from'axios'
 import { lastRecordNo } from '@/appconfig/functions';
+import FitnessGrph from '@/app/components/graphs/fitnessgraph';
 
 const Psvban = () => {
 
@@ -23,12 +24,44 @@ const today = new Date().toISOString().split("T")[0]
     const [orderDoc,setOrderDoc] =useState("")
     const [fir,setFir] =useState("")
     const [id,setId] =useState("")
-    // ===================================savind ban detail
+
+    //====================================states 
+    const [letter,setLetter] = useState("")
+    const [extra,setExtra] = useState("")
+    const [modal,setModal] = useState("")
+    const [regNo,setRegNo] = useState("")
+    const [psvSearch,setPsvSearch] = useState("")
+
+    //============================= clear form
+
+    const clearForm =()=>{
+        setOrderNo("")
+        setAuthority("")
+        setStartDate(today)
+        setEndDate(today)
+        setReason("")
+        setOrderDoc("")
+        setFir("")
+    }
+
+    // ===================================get detaill
+
+const getPsv = ()=>{
+   
+    axios.get(`http://localhost:5000/psv/getPsv/${letter}/${modal}/${regNo}`).then(
+        response =>{
+            const result = response.data[0]
+            if (result) {
+                setPsvSearch(result )
+            }else{
+                alert('Vehicle Not In record')
+            }
+        }
+    )
+}
 
 
-
-
-
+//================================================save Data
 const saveData =()=> {
     try {
     axios.get(`http://localhost:5000/gen/last/banLog/banId`).then(
@@ -40,11 +73,11 @@ const saveData =()=> {
             
             {
                 banId : result.last,
-                date : '2023-01-01',     
+                date : today,     
                 Type : 'psv',
-                psv : 'les-2014-456',
-                driver : 121313213,
-                company : 'asdasdas',
+                psv : psvSearch.psvNo,
+                driver : "",
+                company : '',
                 orderNo : orderNo,
                 issuedby : authority,
                 from : startDate,
@@ -61,24 +94,19 @@ const saveData =()=> {
             )
     .then(() =>{ 
 
-axios.patch('http://116.0.45.14:5000/psv/banPsv/BYA200585', {
+axios.patch(`http://116.0.45.14:5000/psv/banPsv/${psvSearch.psvNo}`, {
 
                     banId:result.last,
                     banStatus :'ban',
                     banArea :'zone',
-                    banoffice:'N5 North'
+                    banoffice:'Motorway Central-II'
                     
 })
  
-        alert(`---------Data Saved-------------- \n   The Vehicle # BYA-2005-85 has been banned in N5 North Zone from 14-05-2024 to 17-10-2024`);
+        alert(`---------Data Saved-------------- \n   The Vehicle # ${psvSearch.psvNo} has been banned in N5 North Zone from '${startDate}' to '${endDate}'`);
         })
         }
     )
-
-  
-
-
-
     }
      catch (error) {
       console.log(error)
@@ -87,41 +115,41 @@ axios.patch('http://116.0.45.14:5000/psv/banPsv/BYA200585', {
   }   
 
 
-const checkban =(psv)=>{
+// const checkban =(psv)=>{
 
-    axios.get(`http://116.0.45.14:5000/web/ban/checkban/${psv}`).then(
-        response=>{
-            const result = response.data[0]
+//     axios.get(`http://116.0.45.14:5000/web/ban/checkban/${psv}`).then(
+//         response=>{
+//             const result = response.data[0]
 
-            console.log(result)
-            if(result.banArea == 'sector'){
-                if(result.banoffice == 'N5 North'){
-                    alert("vehicl eban in sector")
-                }
-            }
-            else if (result.banArea == 'zone'){
-                if(result.banoffice == 'N5 North'){
-                    alert("vehicle ban in Zone")
-                }
-            }
-            else if (result.banArea == 'region'){
-                if(result.banoffice == 'N5 North'){
-                    alert("vehicle ban in Region")
-                }
-            }
-            else if(result.banArea == 'hq'){
-                if(result.banoffice == 'N5 North'){
-                    alert("vehicle ban in NHMP")
-                }
+//             console.log(result)
+//             if(result.banArea == 'sector'){
+//                 if(result.banoffice == 'N5 North'){
+//                     alert("vehicl eban in sector")
+//                 }
+//             }
+//             else if (result.banArea == 'zone'){
+//                 if(result.banoffice == 'N5 North'){
+//                     alert("vehicle ban in Zone")
+//                 }
+//             }
+//             else if (result.banArea == 'region'){
+//                 if(result.banoffice == 'N5 North'){
+//                     alert("vehicle ban in Region")
+//                 }
+//             }
+//             else if(result.banArea == 'hq'){
+//                 if(result.banoffice == 'N5 North'){
+//                     alert("vehicle ban in NHMP")
+//                 }
 
-                else{
-                    alert("OFFICE",result.banoffice,'area >>>>>',result.banArea)
-                }
-            }
-        }
-    )
+//                 else{
+//                     alert("OFFICE",result.banoffice,'area >>>>>',result.banArea)
+//                 }
+//             }
+//         }
+//     )
 
-}
+// }
 
 
     
@@ -140,33 +168,36 @@ const checkban =(psv)=>{
         <div className=' rounded-md shadow-blue-900 border border-blue-500  shadow-md p-2 w-full bg-blue-500 flex gap-2 items-cenetr justify-center'>
             <fieldset className='  p-1   border-slate-300  w-1/5  gap-2 flex pl-2  '>
             <legend className='text-xs text-white rounded-sm px-1'>Letters</legend>
-            <input type="text" placeholder ='XYZ' className= ' rounded-md shadow-inner  shadow-blue-900 pl-2 w-3/4     p-1 focus:outline-none   -separate' />
-            <input type="text" placeholder ='A' className= ' rounded-md  shadow-inner shadow-blue-900 pl-2 w-1/4     p-1 focus:outline-none   -separate' />
+            <input value={letter}  onChange={(e)=>setLetter(e.target.value.toUpperCase())} type="text" placeholder ='XYZ' className= ' rounded-md shadow-inner  shadow-blue-900 pl-2 w-full     p-1 focus:outline-none   -separate' />
+            {/* <input value={extra} onChange={(e)=>setExtra(e.target.value)} type="text" placeholder ='A' className= ' rounded-md  shadow-inner shadow-blue-900 pl-2 w-1/4     p-1 focus:outline-none   -separate' /> */}
             </fieldset>
             <fieldset className='  p-1   border-slate-300  w-1/5  gap-2 flex pl-2  '>
             <legend className='text-xs text-white rounded-sm px-1'>Modal</legend>
-            <input type="text" placeholder ='2023' className= ' rounded-md shadow-inner  shadow-blue-900 pl-2 w-full     p-1 focus:outline-none   -separate' />
+            <input value={modal} onChange={(e)=>setModal(e.target.value)} type="text" placeholder ='2023' className= ' rounded-md shadow-inner  shadow-blue-900 pl-2 w-full     p-1 focus:outline-none   -separate' />
            
             </fieldset>
             <fieldset className=' p-1   border-slate-300  w-1/5  gap-2 flex pl-2  '>
             <legend className='text-xs text-white rounded-sm px-1'>Reg.No</legend>
-            <input type="text" placeholder ='0000' className= 'rounded-md shadow-inner   shadow-blue-900 pl-2 w-full     p-1 focus:outline-none   -separate' />
+            <input value={regNo} onChange={(e)=>setRegNo(e.target.value)} type="text" placeholder ='0000' className= 'rounded-md shadow-inner   shadow-blue-900 pl-2 w-full     p-1 focus:outline-none   -separate' />
            
             </fieldset>
             <div className='p-1  pt-5 border-slate-300  w-1/5  gap-2  pl-2  flex justify-end' >
-            <button className='  rounded-lg border-separate    px-5 bg-white shadow-md shadow-gray-600'>
+            <button onClick={()=>getPsv()} className='  rounded-lg border-separate    px-5 bg-white shadow-md shadow-gray-600'>
                 <BsSearch  className='font-bold'/>
             </button>
             </div>
         </div>
 
         {/* ================================== Vehicle detaail */}
+        <Suspense fallback={ <FitnessGrph />}>
+
+
         <div className='border border-slate-400 rounded-md mt-6 p-5 shadow-lg shadow-gray-500 bg-indigo-50'>
             <div className='flex '>
         <div  className='w-2/4 flex flex-col pr-2 '>
-        <Output label='Vehicle No :' value = 'LES-2019-4578' />
-        <Output label='Company :' value = 'Faisal Mover' />
-        <Output label='Terminal :' value = 'Lahore' />
+        <Output label='Vehicle No :' value = {psvSearch?psvSearch.prefixRegNo +"-" +psvSearch.vehicleModel+"-"+psvSearch.regNo:""} />
+        <Output label='Company :' value = {psvSearch?psvSearch.companyName:"-"} />
+        <Output label='Terminal :' value =  {psvSearch?psvSearch.subCompany:"-"} />
         </div>
         <div className='flex w-2/4 gap-3 p-2'>
             <div className='w-2/4 min-h-full rounded-md border-slate-400  border bg-slate-200 flex justify-center  shadow-md shadow-gray-600 items-center'> Preview not avaible</div>
@@ -175,14 +206,16 @@ const checkban =(psv)=>{
         </div>
 
         <div  className='flex w-full'>
-        <Output label='Engine No :' value = 'CH012346ZQ3223432'  />
-        <Output label='Chasis No :' value = 'zxc56456fsd564656'  />
+        <Output label='Engine No :' value =  {psvSearch?psvSearch.engineNo:""}  />
+        <Output label='Chasis No :' value =  {psvSearch?psvSearch.chasisNo:""}  />
         </div>
         <div className='flex w-full'>
-        <Output label='Color :' value = 'BLUE' />
-        <Output label='Route :' value = 'Lahore to Islamabad' />
+        <Output label='Color :' value =  {psvSearch?psvSearch.vehicleColor:""} />
+        <Output label='Route :' value =  {psvSearch?psvSearch.routeFrom + " - "+ "to" + " - " + psvSearch.routeTo:""} />
         </div>
         </div>
+
+        </Suspense>
 
 
     {/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>=-------------Form  */}
@@ -207,7 +240,7 @@ const checkban =(psv)=>{
 
         <div className='flex w-full gap-3 justify-center pt-10 pb-5'>
             <button onClick = {()=>saveData()} className='hover:bg-indigo-600 bg-blue-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Save</button>
-            <button onClick = {()=>checkban('BYA200585')} className='bg-red-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Clear</button>
+            <button onClick={()=>clearForm()} className='bg-red-600 text-white font-normal w-1/5 rounded-md py-1 px-4 '>Clear</button>
         
         </div>
     </div>
