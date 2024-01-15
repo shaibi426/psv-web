@@ -1,6 +1,6 @@
 import { withAuth } from "next-auth/middleware"
 import CredentialsProvider from "next-auth/providers/credentials"
-const users= [{name:'ateeq',pwd:'123',role:"admin"},{name:'daneen',pwd:'123',role:"user"}]
+const users= [{name:'ateeq',pwd:'123',role:"admin"},{name:'ahsan',pwd:'123',role:"user"}]
 
  const authOptions ={
   
@@ -14,6 +14,14 @@ const users= [{name:'ateeq',pwd:'123',role:"admin"},{name:'daneen',pwd:'123',rol
             password: { label: "Password", type: "password" }
           },
           async authorize(credentials, req) {
+
+
+
+
+
+
+
+
               if(!credentials || !credentials.username|| ! credentials.password)
               return null
             const user = users.find((item)=>item.name === credentials.username)
@@ -52,3 +60,5 @@ const users= [{name:'ateeq',pwd:'123',role:"admin"},{name:'daneen',pwd:'123',rol
  }
 
  export {authOptions}
+
+
