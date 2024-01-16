@@ -6,18 +6,32 @@ import driver from './assests/driver.png'
 import company from './assests/company.png'
 import psv from './assests/bus.png'
 import axios from "axios";
+import { useSession } from "next-auth/react";
+
 
 export default function SideBarMenu() {
+  const {data} = useSession()
+
+
+
     const [totalDrivers,setDrivers] =useState()
     const [totalVehicles,setVehicles] =useState()
     const [totalCompanies,setCompanies] =useState()
+    const [useroffice,setUserOffice] = useState()
+    const [webrole,setwebrole] =useState()
 
     //---------------------------------------------------------get total records
-    const getTotalRecord = async () => {
-       axios.get('http://203.99.61.134:7077/web/totalRecords').then(
+    const getTotalRecord = async (userofficeType,useroffice) => {
+           
+       axios.post('http://203.99.61.134:7077/web/officetotalRecords',
+         {
+          'officeType':userofficeType,
+          'office':useroffice
+         }
+       ).then(
         response=>{
           const result = response.data
-
+        
           if (result){
             setCompanies(result[0]['companies'])
             setDrivers(result[0]['drivers'])
@@ -29,8 +43,21 @@ export default function SideBarMenu() {
  
 
     useEffect(()=>{
-        getTotalRecord()        
-    },[totalCompanies,totalDrivers,totalVehicles])
+        if(data){
+        switch (data.user.webrole) {
+          case 'sectorAdmin':
+            getTotalRecord("sectorId",data.user.sectorId)
+            break;
+            
+          case 'zonalAdmin':
+            getTotalRecord("zoneId",data.user.zoneId)
+            break;
+        
+          default:
+            break;
+        }
+        }
+    },[totalCompanies,totalDrivers,totalVehicles,data])
 
     return(
       <div className="bg-pmpblue3 bg-gradient-radial to-pmpblue3 from-blue-900 w-2/12  flex flex-col justify-start items-center">
@@ -51,6 +78,7 @@ export default function SideBarMenu() {
 
 
           <div className="menu-subdiv">
+         
           <div className="bg-pmpyellow   rounded-full h-50 w-50 p-2">
           <Image src={driver} width={50} height={50} alt="logo"  />
           </div>
@@ -65,6 +93,7 @@ export default function SideBarMenu() {
           </div>
             <div className="mt-2 flex flex-col justify-center items-center">
             <span className=' font-semibold m-1'>Total Vehicles</span>
+            
             <span className='bg-pmpyellow w-5/6 text-center text-pmpblue'>{totalVehicles}</span>
             </div>
           </div>

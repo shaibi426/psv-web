@@ -4,11 +4,12 @@ import logo from './assests/PMP LOGO.png'
 import Link from "next/link";
 import DropDown from '../components/dowpdown menu/dropdown'
 import MainMenu from './menubar/page'
-
+import { useSession } from "next-auth/react";
 
 
 
 export default function Header() {
+  const {data} = useSession()
 
   return (
     <div className="bg-pmpblue3 w-full h-14 border-pmpyellow border-b-2 text-pmpyellow flex justify-between items-center">
@@ -28,8 +29,20 @@ export default function Header() {
       </div>
     </div>
 
-    <div className=" px-10  text-sm">
+    <div className=" pl-10   text-sm flex gap-8">
 <MainMenu />
+{data && 
+<div className=" flex flex-col items-center justify-center  text-pmpblue">
+  <span className=" px-2 rounded-l-full  font-semibold bg-pmpyellow">
+  {data.user?
+  data.user.webrole == 'sectorAdmin'?
+  data.user.rank +" "+ data.user.userName +  "  ("+ data.user.sectorId + ")"  :
+  data.user.rank +" "+ data.user.userName +  "  ("+ data.user.zoneId + ")"  :
+  "-"}
+  </span>
+
+  </div>
+}
 </div>
     </div>
   );
